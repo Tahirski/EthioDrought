@@ -29,57 +29,33 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-text-subtle text-[11px] leading-relaxed max-w-xs">
-              {lang === "am"
-                ? "በናሳ የሳተላይት መረጃዎች በመጠቀም በኢትዮጵያ ዙሪያ የድርቅና የአካባቢ ጫናን የሚመረምር የምድር ምልከታ መድረክ።"
-                : "Earth Observation Intelligence platform investigating drought and environmental stress in Ethiopia using NASA satellite data."}
+              Earth Observation Intelligence platform investigating drought and environmental stress in Ethiopia using NASA satellite data.
             </p>
             <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-panel-dark/80 border border-accent-blue/30 w-fit">
               <Satellite className="w-3 h-3 text-accent-cyan" />
-              <span className="text-[10px] font-mono text-accent-light">
-                {lang === "am" ? "የናሳ ስፔስ አፕስ ውድድር 2026" : "NASA Space Apps Challenge 2026"}
-              </span>
+              <span className="text-[10px] font-mono text-accent-light">NASA Space Apps Challenge 2026</span>
             </div>
           </div>
 
           {/* Navigation Links */}
           <div className="space-y-3">
-            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">
-              {lang === "am" ? "መድረክ" : "Platform"}
-            </h4>
+            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">Platform</h4>
             <nav className="flex flex-col gap-1.5">
-              <Link href="/explore" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.explore}
-              </Link>
-              <Link href="/fingerprint" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.fingerprint}
-              </Link>
-              <Link href="/trends" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.trendDetective}
-              </Link>
-              <Link href="/compare" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.comparison}
-              </Link>
-              <Link href="/alerts" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.alerts}
-              </Link>
-              <Link href="/datasets" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.datasets}
-              </Link>
+              <Link href="/explore" className="text-text-subtle hover:text-accent-cyan transition-colors">Explore Ethiopia</Link>
+              <Link href="/fingerprint" className="text-text-subtle hover:text-accent-cyan transition-colors">Drought Fingerprint</Link>
+              <Link href="/trends" className="text-text-subtle hover:text-accent-cyan transition-colors">Trend Detective</Link>
+              <Link href="/compare" className="text-text-subtle hover:text-accent-cyan transition-colors">Regional Comparison</Link>
+              <Link href="/alerts" className="text-text-subtle hover:text-accent-cyan transition-colors">ETHIODROUGHT Alert</Link>
+              <Link href="/datasets" className="text-text-subtle hover:text-accent-cyan transition-colors">Dataset Explorer</Link>
             </nav>
           </div>
 
           {/* Resources */}
           <div className="space-y-3">
-            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">
-              {lang === "am" ? "ግብዓቶች" : "Resources"}
-            </h4>
+            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">Resources</h4>
             <nav className="flex flex-col gap-1.5">
-              <Link href="/data" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.data}
-              </Link>
-              <Link href="/methodology" className="text-text-subtle hover:text-accent-cyan transition-colors">
-                {t.nav.methodology}
-              </Link>
+              <Link href="/data" className="text-text-subtle hover:text-accent-cyan transition-colors">Data Explorer</Link>
+              <Link href="/methodology" className="text-text-subtle hover:text-accent-cyan transition-colors">Methodology</Link>
               <a href="https://www.spaceappschallenge.org/" target="_blank" rel="noreferrer" className="text-text-subtle hover:text-accent-cyan transition-colors flex items-center gap-1">
                 Space Apps <ExternalLink className="w-2.5 h-2.5" />
               </a>
@@ -91,9 +67,7 @@ export const Footer: React.FC = () => {
 
           {/* Data Sources */}
           <div className="space-y-3">
-            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">
-              {lang === "am" ? "የናሳ መረጃ ምንጮች" : "NASA Data Sources"}
-            </h4>
+            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">NASA Data Sources</h4>
             <div className="space-y-2 text-[11px] text-text-subtle">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
@@ -113,8 +87,8 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Bar */}
         <div className="mt-8 pt-4 border-t border-panel-border/15 flex flex-col sm:flex-row items-center justify-between gap-2 text-[10px] font-mono text-text-subtle">
-          <span>{lang === "am" ? "ኢትዮ-ድርቅ — ከዝናብ ባሻገር | የ2026 የናሳ ስፔስ አፕስ ውድድር" : "ETHIODROUGHT — Beyond Rainfall | 2026 NASA Space Apps Challenge"}</span>
-          <span>{lang === "am" ? "ኢትዮጵያ | የቦረና ዞን ጥናት | ክፍት ሳይንስ" : "Ethiopia | Borena Zone Case Study | Open Science"}</span>
+          <span>ETHIODROUGHT — Beyond Rainfall | 2026 NASA Space Apps Challenge</span>
+          <span>Ethiopia | Borena Zone Case Study | Open Science</span>
         </div>
       </div>
     </footer>

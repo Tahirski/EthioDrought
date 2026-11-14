@@ -76,14 +76,6 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
     };
   }, [comparativeChartData]);
 
-  const isAmharic = lang === "am";
-
-  const getRegionDisplayName = (key: string) => {
-    if (key === "borena") return isAmharic ? "ቦረና ዞን (ኦሮሚያ)" : "Borena Zone (Oromia)";
-    if (key === "somali") return isAmharic ? "ሶማሊ ክልል (ፋፈን)" : "Somali Region (Fafan)";
-    return isAmharic ? "ትግራይ ክልል (መካከለኛ)" : "Tigray Region (Central)";
-  };
-
   return (
     <div className="space-y-6 max-w-7xl mx-auto py-2 font-mono">
       {/* Header Banner */}
@@ -93,48 +85,42 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
             <div className="flex items-center gap-2 mb-1">
               <GitCompare className="w-4 h-4 text-accent-cyan" />
               <span className="text-xs tracking-widest text-accent-light uppercase">
-                {isAmharic ? "የክልሎች አግሮ-አየር ንብረት ንጽጽር" : "CROSS-REGIONAL AGRO-CLIMATIC CONTRAST"}
+                CROSS-REGIONAL AGRO-CLIMATIC CONTRAST
               </span>
             </div>
             <h1 className="text-2xl lg:text-3xl font-bold text-text-primary tracking-wide">
               {t.comparison.title}
             </h1>
             <p className="text-xs text-text-secondary mt-1 max-w-3xl leading-relaxed">
-              {isAmharic
-                ? "በኢትዮጵያ የተለያዩ አግሮ-ኢኮሎጂካል ዞኖች መካከል ያለውን የድርቅ ተለዋዋጭነት ጎን ለጎን በማነጻጸር መመርመር።"
-                : "Side-by-side comparative examination of drought dynamics between Ethiopian agro-ecological zones."}
+              Side-by-side comparative examination of drought dynamics between Ethiopian agro-ecological zones.
             </p>
           </div>
 
           {/* Region Selectors */}
           <div className="flex flex-wrap items-center gap-3">
             <div className="p-2.5 rounded-2xl bg-panel-dark/90 border border-panel-border/40">
-              <label className="text-[9px] text-text-subtle uppercase block mb-1">
-                {isAmharic ? "ዋና ዞን 1" : "Target Zone 1"}
-              </label>
+              <label className="text-[9px] text-text-subtle uppercase block mb-1">Target Zone 1</label>
               <select
                 value={region1Key}
                 onChange={(e) => setRegion1Key(e.target.value)}
                 className="bg-transparent text-xs text-accent-cyan font-bold focus:outline-none"
               >
-                <option value="borena">{isAmharic ? "ቦረና ዞን (ኦሮሚያ)" : "Borena Zone (Oromia)"}</option>
-                <option value="somali">{isAmharic ? "ሶማሊ ክልል (ፋፈን)" : "Somali Region (Fafan)"}</option>
-                <option value="tigray">{isAmharic ? "ትግራይ ክልል (መካከለኛ)" : "Tigray Region (Central)"}</option>
+                <option value="borena">Borena Zone (Oromia)</option>
+                <option value="somali">Somali Region (Fafan)</option>
+                <option value="tigray">Tigray Region (Central)</option>
               </select>
             </div>
 
             <div className="p-2.5 rounded-2xl bg-panel-dark/90 border border-panel-border/40">
-              <label className="text-[9px] text-text-subtle uppercase block mb-1">
-                {isAmharic ? "የንጽጽር ዞን 2" : "Comparison Zone 2"}
-              </label>
+              <label className="text-[9px] text-text-subtle uppercase block mb-1">Comparison Zone 2</label>
               <select
                 value={region2Key}
                 onChange={(e) => setRegion2Key(e.target.value)}
                 className="bg-transparent text-xs text-amber-400 font-bold focus:outline-none"
               >
-                <option value="somali">{isAmharic ? "ሶማሊ ክልል (ፋፈን)" : "Somali Region (Fafan)"}</option>
-                <option value="borena">{isAmharic ? "ቦረና ዞን (ኦሮሚያ)" : "Borena Zone (Oromia)"}</option>
-                <option value="tigray">{isAmharic ? "ትግራይ ክልል (መካከለኛ)" : "Tigray Region (Central)"}</option>
+                <option value="somali">Somali Region (Fafan)</option>
+                <option value="borena">Borena Zone (Oromia)</option>
+                <option value="tigray">Tigray Region (Central)</option>
               </select>
             </div>
           </div>
@@ -147,7 +133,7 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
         <div className="p-5 rounded-3xl nasa-panel border border-panel-border/30">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-panel-border/30 text-xs">
             <span className="font-bold text-text-primary flex items-center gap-1.5">
-              <Droplets className="w-4 h-4 text-accent-cyan" /> {isAmharic ? "የዝናብ መጠን ልዩነት (Z)" : "Rainfall Anomaly (Z)"}
+              <Droplets className="w-4 h-4 text-accent-cyan" /> Rainfall Anomaly (Z)
             </span>
             <span className="text-[10px] text-text-subtle">GPM IMERG</span>
           </div>
@@ -160,15 +146,15 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
                 <XAxis dataKey="date" tick={{ fill: "#595C61", fontSize: 8 }} interval={11} />
                 <YAxis domain={[-3, 3]} tick={{ fill: "#595C61", fontSize: 8 }} />
                 <Tooltip contentStyle={{ backgroundColor: "#162036", borderColor: "#41619F", fontSize: "10px" }} />
-                <Line type="monotone" dataKey="r1RainZ" stroke="#28D7C5" strokeWidth={2} dot={false} name={getRegionDisplayName(region1Key)} />
-                <Line type="monotone" dataKey="r2RainZ" stroke="#F59E0B" strokeWidth={2} dot={false} strokeDasharray="3 3" name={getRegionDisplayName(region2Key)} />
+                <Line type="monotone" dataKey="r1RainZ" stroke="#28D7C5" strokeWidth={2} dot={false} name={r1.regionName} />
+                <Line type="monotone" dataKey="r2RainZ" stroke="#F59E0B" strokeWidth={2} dot={false} strokeDasharray="3 3" name={r2.regionName} />
               </LineChart>
             </ResponsiveContainer>
           </div>
 
           <div className="flex justify-between text-[10px] text-text-secondary pt-2 border-t border-panel-border/20">
-            <span className="text-accent-cyan font-bold">● {getRegionDisplayName(region1Key)}</span>
-            <span className="text-amber-400 font-bold">-- {getRegionDisplayName(region2Key)}</span>
+            <span className="text-accent-cyan font-bold">● {r1.regionName}</span>
+            <span className="text-amber-400 font-bold">-- {r2.regionName}</span>
           </div>
         </div>
 
@@ -176,7 +162,7 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
         <div className="p-5 rounded-3xl nasa-panel border border-panel-border/30">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-panel-border/30 text-xs">
             <span className="font-bold text-text-primary flex items-center gap-1.5">
-              <Wind className="w-4 h-4 text-sky-400" /> {isAmharic ? "የአፈር እርጥበት ልዩነት (Z)" : "Soil Moisture Anomaly (Z)"}
+              <Wind className="w-4 h-4 text-sky-400" /> Soil Moisture Anomaly (Z)
             </span>
             <span className="text-[10px] text-text-subtle">FLDAS Noah</span>
           </div>
@@ -189,15 +175,15 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
                 <XAxis dataKey="date" tick={{ fill: "#595C61", fontSize: 8 }} interval={11} />
                 <YAxis domain={[-3, 3]} tick={{ fill: "#595C61", fontSize: 8 }} />
                 <Tooltip contentStyle={{ backgroundColor: "#162036", borderColor: "#41619F", fontSize: "10px" }} />
-                <Line type="monotone" dataKey="r1SoilZ" stroke="#38BDF8" strokeWidth={2} dot={false} name={getRegionDisplayName(region1Key)} />
-                <Line type="monotone" dataKey="r2SoilZ" stroke="#F59E0B" strokeWidth={2} dot={false} strokeDasharray="3 3" name={getRegionDisplayName(region2Key)} />
+                <Line type="monotone" dataKey="r1SoilZ" stroke="#38BDF8" strokeWidth={2} dot={false} name={r1.regionName} />
+                <Line type="monotone" dataKey="r2SoilZ" stroke="#F59E0B" strokeWidth={2} dot={false} strokeDasharray="3 3" name={r2.regionName} />
               </LineChart>
             </ResponsiveContainer>
           </div>
 
           <div className="flex justify-between text-[10px] text-text-secondary pt-2 border-t border-panel-border/20">
-            <span className="text-sky-400 font-bold">● {getRegionDisplayName(region1Key)}</span>
-            <span className="text-amber-400 font-bold">-- {getRegionDisplayName(region2Key)}</span>
+            <span className="text-sky-400 font-bold">● {r1.regionName}</span>
+            <span className="text-amber-400 font-bold">-- {r2.regionName}</span>
           </div>
         </div>
 
@@ -205,7 +191,7 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
         <div className="p-5 rounded-3xl nasa-panel border border-panel-border/30">
           <div className="flex items-center justify-between pb-3 mb-3 border-b border-panel-border/30 text-xs">
             <span className="font-bold text-text-primary flex items-center gap-1.5">
-              <Sprout className="w-4 h-4 text-emerald-400" /> {isAmharic ? "የዕፅዋት ሽፋን ልዩነት (NDVI Z)" : "Vegetation Health (NDVI Z)"}
+              <Sprout className="w-4 h-4 text-emerald-400" /> Vegetation Health (NDVI Z)
             </span>
             <span className="text-[10px] text-text-subtle">MODIS NDVI</span>
           </div>
@@ -218,15 +204,15 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
                 <XAxis dataKey="date" tick={{ fill: "#595C61", fontSize: 8 }} interval={11} />
                 <YAxis domain={[-3, 3]} tick={{ fill: "#595C61", fontSize: 8 }} />
                 <Tooltip contentStyle={{ backgroundColor: "#162036", borderColor: "#41619F", fontSize: "10px" }} />
-                <Line type="monotone" dataKey="r1VegZ" stroke="#10B981" strokeWidth={2} dot={false} name={getRegionDisplayName(region1Key)} />
-                <Line type="monotone" dataKey="r2VegZ" stroke="#F59E0B" strokeWidth={2} dot={false} strokeDasharray="3 3" name={getRegionDisplayName(region2Key)} />
+                <Line type="monotone" dataKey="r1VegZ" stroke="#10B981" strokeWidth={2} dot={false} name={r1.regionName} />
+                <Line type="monotone" dataKey="r2VegZ" stroke="#F59E0B" strokeWidth={2} dot={false} strokeDasharray="3 3" name={r2.regionName} />
               </LineChart>
             </ResponsiveContainer>
           </div>
 
           <div className="flex justify-between text-[10px] text-text-secondary pt-2 border-t border-panel-border/20">
-            <span className="text-emerald-400 font-bold">● {getRegionDisplayName(region1Key)}</span>
-            <span className="text-amber-400 font-bold">-- {getRegionDisplayName(region2Key)}</span>
+            <span className="text-emerald-400 font-bold">● {r1.regionName}</span>
+            <span className="text-amber-400 font-bold">-- {r2.regionName}</span>
           </div>
         </div>
       </div>
@@ -235,25 +221,21 @@ export const ComparisonPage: React.FC<ComparisonPageProps> = ({ lang }) => {
       <div className="p-6 rounded-3xl nasa-panel-blue border border-accent-secondary/40 shadow-2xl space-y-3">
         <h3 className="text-sm font-bold text-text-primary uppercase tracking-wider flex items-center gap-2">
           <Info className="w-4 h-4 text-accent-cyan" />
-          <span>{isAmharic ? "የአግሮ-አየር ንብረት ልዩነት ሳይንሳዊ ማብራሪያ" : "Agro-Climatic Contrast Explanation"}</span>
+          <span>Agro-Climatic Contrast Explanation</span>
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-text-secondary leading-relaxed">
           <div className="p-4 rounded-2xl bg-panel-dark/80 border border-panel-border/30 space-y-2">
-            <span className="font-bold text-accent-cyan block">{getRegionDisplayName(region1Key)}</span>
+            <span className="font-bold text-accent-cyan block">{r1.regionName}</span>
             <p>
-              {isAmharic
-                ? "በዓመት ሁለት የዝናብ ወቅቶች (ገና እና ደይር) ያሉት አርብቶ አደር ዞን ሲሆን፣ ተከታታይ ወቅቶች ሳይዘንቡ ሲቀሩ (እንደ 2020–2023) ጥልቅ የአፈር እርጥበት ክምችት ሙሉ በሙሉ በመሟጠጡ የግጦሽ ሳር እንዳይበቅል ያደርጋል።"
-                : "Characterized by a bimodal precipitation regime governed by the Intertropical Convergence Zone (ITCZ): the primary Genna rains (March–May) and secondary Deyr rains (October–November). When consecutive bimodal seasons fail (as during 2020–2023), soil moisture storage completely collapses, preventing perennial grasses from germinating."}
+              Characterized by a <strong>bimodal precipitation regime</strong> governed by the Intertropical Convergence Zone (ITCZ): the primary <em>Genna</em> rains (March–May) and secondary <em>Deyr</em> rains (October–November). When consecutive bimodal seasons fail (as during 2020–2023), soil moisture storage completely collapses, preventing perennial grasses from germinating.
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-panel-dark/80 border border-panel-border/30 space-y-2">
-            <span className="font-bold text-amber-400 block">{getRegionDisplayName(region2Key)}</span>
+            <span className="font-bold text-amber-400 block">{r2.regionName}</span>
             <p>
-              {isAmharic
-                ? "የተለያየ የተጋላጭነት ጊዜ ያሳያል። በትግራይ ከፍተኛ ደጋማ ቦታዎች ግብርናው በክረምት ዝናብ (ከሐምሌ እስከ ነሐሴ) ላይ የተመሰረተ ነው። በተቃራኒው፣ በሶማሊ ክልል ደረቅ ቆላማ አካባቢዎች የዕፅዋት ምላሽ ፈጣንና አጭር ነው። በኤል ኒኞ ወቅት የእነዚህ አካባቢዎች የድርቅ ልዩነቶች እንደሚለያዩ ማስተዋል ይቻላል።"
-                : "Displays different vulnerability timing. In the northern highlands (Tigray), agriculture relies on the unimodal Kiremt rains (July–August). In contrast, Somali/Fafan is hyper-arid with sparse vegetative response to flash rainfall events. Notice how anomalies between these two regions decouple during major El Niño events."}
+              Displays different vulnerability timing. In the northern highlands (Tigray), agriculture relies on the <strong>unimodal Kiremt rains</strong> (July–August). In contrast, Somali/Fafan is hyper-arid with sparse vegetative response to flash rainfall events. Notice how anomalies between these two regions decouple during major El Niño events (e.g. 2015 El Niño devastated Tigray while Borena experienced different seasonal timing).
             </p>
           </div>
         </div>

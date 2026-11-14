@@ -69,8 +69,6 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
     ndvi: r.ndvi,
   }));
 
-  const isAmharic = lang === "am";
-
   return (
     <div className="space-y-6 max-w-7xl mx-auto py-2 font-mono">
       {/* Header Banner */}
@@ -80,16 +78,14 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
             <div className="flex items-center gap-2 mb-1">
               <span className="w-2.5 h-2.5 rounded-full bg-accent-cyan animate-pulse" />
               <span className="text-xs tracking-widest text-accent-light uppercase">
-                {isAmharic ? "የናሳ ስፔስ አፕስ ዋና የፈጠራ ውጤት" : "NASA SPACE APPS CORE INNOVATION"}
+                NASA SPACE APPS CORE INNOVATION
               </span>
             </div>
             <h1 className="text-2xl lg:text-3xl font-bold text-text-primary tracking-wide">
               {t.nav.fingerprint}
             </h1>
             <p className="text-xs text-text-secondary mt-1 max-w-3xl leading-relaxed">
-              {isAmharic
-                ? "በቦረና ዞን፣ ኢትዮጵያ ውስጥ በዝናብ (የአየር ንብረት)፣ በአፈር እርጥበት (የውሃ ሃብት) እና በዕፅዋት ሽፋን (የግብርና) ልዩነቶች መካከል ያለውን መስተጋብርና የመዘግየት ልዩነት መመርመር።"
-                : "Investigating the agreement and lag differences between rainfall (meteorological), soil moisture (hydrological), and vegetation health (agricultural) anomalies in Borena Zone, Ethiopia."}
+              Investigating the agreement and lag differences between rainfall (meteorological), soil moisture (hydrological), and vegetation health (agricultural) anomalies in Borena Zone, Ethiopia.
             </p>
           </div>
 
@@ -97,8 +93,7 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
           <div className="p-3 rounded-2xl bg-panel-dark/90 border border-panel-border/40 min-w-[240px]">
             <div className="flex items-center justify-between text-xs mb-1.5">
               <span className="text-text-secondary flex items-center gap-1.5">
-                <Sliders className="w-3.5 h-3.5 text-accent-cyan" />
-                {isAmharic ? "የጉድለት ወሰን (τ):" : "Deficit Threshold (τ):"}
+                <Sliders className="w-3.5 h-3.5 text-accent-cyan" /> Deficit Threshold (τ):
               </span>
               <span className="font-bold text-accent-cyan">{threshold.toFixed(1)} σ</span>
             </div>
@@ -112,9 +107,9 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
               className="w-full h-1.5 bg-black/60 rounded-lg appearance-none cursor-pointer accent-accent-cyan"
             />
             <div className="flex justify-between text-[9px] text-text-subtle mt-1">
-              <span>{isAmharic ? "-2.0σ (ከፍተኛ)" : "-2.0σ (Extreme)"}</span>
-              <span>{isAmharic ? "-1.0σ (መደበኛ)" : "-1.0σ (Standard)"}</span>
-              <span>{isAmharic ? "-0.5σ (ቀላል)" : "-0.5σ (Mild)"}</span>
+              <span>-2.0σ (Extreme)</span>
+              <span>-1.0σ (Standard)</span>
+              <span>-0.5σ (Mild)</span>
             </div>
           </div>
         </div>
@@ -131,40 +126,30 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
                   <Droplets className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-text-primary">
-                    {isAmharic ? "1. የዝናብ መጠን ልዩነት" : "1. Rainfall Anomaly"}
-                  </h3>
+                  <h3 className="font-bold text-sm text-text-primary">1. Rainfall Anomaly</h3>
                   <span className="text-[10px] text-text-subtle">NASA GPM IMERG / FLDAS</span>
                 </div>
               </div>
               <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${rainZ <= threshold ? 'bg-red-950/80 text-red-400 border border-red-500/40' : 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/40'}`}>
-                {isAmharic ? (rainZ <= threshold ? 'ጉድለት' : 'መረጋጋት') : (rainZ <= threshold ? 'DEFICIT' : 'STABLE')}
+                {rainZ <= threshold ? 'DEFICIT' : 'STABLE'}
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የተመዘገበ ዝናብ" : "Observed Rain"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Observed Rain</span>
                 <span className="text-base font-bold text-text-primary">{currentRecord.rainfallMm} mm</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የወር አማካይ (μ)" : "Monthly Mean (μ)"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Monthly Mean (μ)</span>
                 <span className="text-base font-bold text-text-secondary">{rainBaseline} mm</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "መደበኛ ልዩነት (σ)" : "Std Dev (σ)"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Std Dev (σ)</span>
                 <span className="text-xs font-bold text-text-secondary">±{rainStd} mm</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የተስተካከለ Z" : "Standardized Z"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Standardized Z</span>
                 <span className={`text-base font-bold ${rainZ < -1 ? 'text-red-400' : 'text-accent-cyan'}`}>
                   {rainZ > 0 ? `+${rainZ}` : rainZ} σ
                 </span>
@@ -192,7 +177,7 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
             </div>
           </div>
           <div className="text-[10px] text-text-subtle pt-2 border-t border-panel-border/20">
-            {isAmharic ? "የአየር ሁኔታ ምልክት፡ ፈጣን የከባቢ አየር የዝናብ ምላሽ።" : "Meteorological signal: Immediate atmospheric precipitation response."}
+            Meteorological signal: Immediate atmospheric precipitation response.
           </div>
         </div>
 
@@ -205,40 +190,30 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
                   <Wind className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-text-primary">
-                    {isAmharic ? "2. የአፈር እርጥበት" : "2. Soil Moisture"}
-                  </h3>
+                  <h3 className="font-bold text-sm text-text-primary">2. Soil Moisture</h3>
                   <span className="text-[10px] text-text-subtle">NASA FLDAS Noah LSM (0-100cm)</span>
                 </div>
               </div>
               <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${soilZ <= threshold ? 'bg-red-950/80 text-red-400 border border-red-500/40' : 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/40'}`}>
-                {isAmharic ? (soilZ <= threshold ? 'የተሟጠጠ' : 'በቂ') : (soilZ <= threshold ? 'DEPLETED' : 'ADEQUATE')}
+                {soilZ <= threshold ? 'DEPLETED' : 'ADEQUATE'}
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የተመዘገበ እርጥበት" : "Observed Volumetric"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Observed Volumetric</span>
                 <span className="text-base font-bold text-text-primary">{currentRecord.soilMoistureM3M3} m³/m³</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የወር አማካይ (μ)" : "Monthly Mean (μ)"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Monthly Mean (μ)</span>
                 <span className="text-base font-bold text-text-secondary">{soilBaseline} m³/m³</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "መደበኛ ልዩነት (σ)" : "Std Dev (σ)"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Std Dev (σ)</span>
                 <span className="text-xs font-bold text-text-secondary">±{soilStd} m³/m³</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የተስተካከለ Z" : "Standardized Z"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Standardized Z</span>
                 <span className={`text-base font-bold ${soilZ < -1 ? 'text-red-400' : 'text-sky-400'}`}>
                   {soilZ > 0 ? `+${soilZ}` : soilZ} σ
                 </span>
@@ -266,7 +241,7 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
             </div>
           </div>
           <div className="text-[10px] text-text-subtle pt-2 border-t border-panel-border/20">
-            {isAmharic ? "የውሃ ሃብት ምልክት፡ ለእፅዋት የሚገኝ ጥልቅ የስር ውኃ ክምችት።" : "Hydrological signal: Plant-available root water storage."}
+            Hydrological signal: Plant-available root water storage.
           </div>
         </div>
 
@@ -279,40 +254,30 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
                   <Sprout className="w-4 h-4" />
                 </div>
                 <div>
-                  <h3 className="font-bold text-sm text-text-primary">
-                    {isAmharic ? "3. የዕፅዋት ጤና" : "3. Vegetation Health"}
-                  </h3>
+                  <h3 className="font-bold text-sm text-text-primary">3. Vegetation Health</h3>
                   <span className="text-[10px] text-text-subtle">NASA MODIS MOD13A2 NDVI</span>
                 </div>
               </div>
               <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${vegZ <= threshold ? 'bg-red-950/80 text-red-400 border border-red-500/40' : 'bg-emerald-950/80 text-emerald-400 border border-emerald-500/40'}`}>
-                {isAmharic ? (vegZ <= threshold ? 'መድረቅ/መክሰም' : 'ለምለም') : (vegZ <= threshold ? 'BROWNING' : 'VIGOR')}
+                {vegZ <= threshold ? 'BROWNING' : 'VIGOR'}
               </span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mb-4 text-xs">
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የተመዘገበ NDVI" : "Observed NDVI"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Observed NDVI</span>
                 <span className="text-base font-bold text-text-primary">{currentRecord.ndvi}</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የወር አማካይ (μ)" : "Monthly Mean (μ)"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Monthly Mean (μ)</span>
                 <span className="text-base font-bold text-text-secondary">{ndviBaseline}</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "መደበኛ ልዩነት (σ)" : "Std Dev (σ)"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Std Dev (σ)</span>
                 <span className="text-xs font-bold text-text-secondary">±{ndviStd}</span>
               </div>
               <div className="p-2.5 rounded-xl bg-black/40 border border-panel-border/20">
-                <span className="text-[10px] text-text-subtle block">
-                  {isAmharic ? "የተስተካከለ Z" : "Standardized Z"}
-                </span>
+                <span className="text-[10px] text-text-subtle block">Standardized Z</span>
                 <span className={`text-base font-bold ${vegZ < -1 ? 'text-amber-400' : 'text-emerald-400'}`}>
                   {vegZ > 0 ? `+${vegZ}` : vegZ} σ
                 </span>
@@ -340,7 +305,7 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
             </div>
           </div>
           <div className="text-[10px] text-text-subtle pt-2 border-t border-panel-border/20">
-            {isAmharic ? "የግብርና ምልክት፡ የዕፅዋት የፎቶሲንተሲስ አቅም እና የግጦሽ ሳር ሁኔታ።" : "Agricultural signal: Canopy photosynthetic capacity & rangeland forage."}
+            Agricultural signal: Canopy photosynthetic capacity & rangeland forage.
           </div>
         </div>
       </div>
@@ -352,26 +317,24 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
             <div className="flex items-center gap-2">
               <ShieldAlert className="w-5 h-5 text-accent-cyan" />
               <h2 className="text-lg font-bold text-text-primary tracking-wide">
-                {isAmharic ? "የድርቅ አሻራ ትንተና እና የመስተጋብር ማትሪክስ" : "Drought Fingerprint Interpretation & Decoupling Matrix"}
+                Drought Fingerprint Interpretation & Decoupling Matrix
               </h2>
             </div>
 
             <div className="p-4 rounded-2xl bg-panel-dark/80 border border-panel-border/40 space-y-2">
               <div className="flex items-center justify-between border-b border-panel-border/30 pb-2">
                 <span className="text-sm font-bold text-accent-cyan">
-                  {isAmharic ? diagnosis.titleAmharic : diagnosis.title}
+                  {lang === "am" ? diagnosis.titleAmharic : diagnosis.title}
                 </span>
                 <span className="text-[10px] font-mono uppercase px-2 py-0.5 rounded bg-accent-blue/30 text-accent-light">
                   {diagnosis.droughtType}
                 </span>
               </div>
               <p className="text-xs text-text-secondary leading-relaxed">
-                {isAmharic ? (diagnosis.summaryAmharic || diagnosis.scientificExplanation) : diagnosis.scientificExplanation}
+                {diagnosis.scientificExplanation}
               </p>
               <div className="pt-2 text-xs text-text-primary flex items-start gap-2">
-                <span className="font-bold text-accent-light">
-                  {isAmharic ? "በግጦሽ ላይ ያለው ተጽእኖ፡" : "Rangeland Impact:"}
-                </span>
+                <span className="font-bold text-accent-light">Rangeland Impact:</span>
                 <span className="text-text-secondary">{diagnosis.agriculturalImplication}</span>
               </div>
             </div>
@@ -380,11 +343,9 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
           {/* Exploratory Composite Index Card */}
           <div className="w-full lg:w-80 p-4 rounded-2xl bg-panel-dark/80 border border-panel-border/40 space-y-3">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-bold text-text-primary">
-                {isAmharic ? "የአካባቢ ጫና አመልካች" : "Exploratory Stress Index"}
-              </span>
+              <span className="font-bold text-text-primary">Exploratory Stress Index</span>
               <span className="text-[9px] text-accent-light px-1.5 py-0.5 rounded bg-accent-blue/20">
-                {isAmharic ? "የሙከራ" : "EXPERIMENTAL"}
+                EXPERIMENTAL
               </span>
             </div>
 
@@ -393,21 +354,19 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
                 {diagnosis.exploratoryCompositeIndex > 0 ? `+${diagnosis.exploratoryCompositeIndex}` : diagnosis.exploratoryCompositeIndex}
               </span>
               <span className="text-[10px] text-text-subtle block mt-1">
-                {isAmharic ? "ቀመር፡ 0.35(Z_ዝናብ) + 0.35(Z_አፈር) + 0.30(Z_ዕፅዋት)" : "Formula: 0.35(Z_rain) + 0.35(Z_soil) + 0.30(Z_veg)"}
+                Formula: 0.35(Z_rain) + 0.35(Z_soil) + 0.30(Z_veg)
               </span>
             </div>
 
             <p className="text-[10px] text-text-subtle leading-normal border-t border-panel-border/20 pt-2">
-              {isAmharic
-                ? "⚠️ ማሳሰቢያ፡ ይህ ስሌት ለሳይንሳዊ ምርምር ብቻ የቀረበ ሲሆን ይፋዊውን የኢትዮጵያ አደጋ ስጋት ስራ አመራር ውሳኔዎችን አይተካም።"
-                : "⚠️ Disclaimer: This exploratory score is for scientific investigation only and does not supersede official Ethiopian disaster risk management mandates."}
+              ⚠️ Disclaimer: This exploratory score is for scientific investigation only and does not supersede official Ethiopian disaster risk management mandates.
             </p>
           </div>
         </div>
       </div>
 
       {/* DROUGHT RECOVERY TRACKER INTEGRATION */}
-      <RecoveryTracker isAmharic={isAmharic} />
+      <RecoveryTracker isAmharic={lang === "am"} />
     </div>
   );
 };
