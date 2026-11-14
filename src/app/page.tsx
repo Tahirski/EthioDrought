@@ -241,13 +241,13 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Priority Rankings and Recovery Analytics */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-7">
-            <RegionalPriorityRanking />
+        {/* Priority Rankings and Recovery Analytics — Stacked Vertically */}
+        <div className="flex flex-col gap-10 w-full">
+          <div className="w-full">
+            <RegionalPriorityRanking isAmharic={isAmharic} />
           </div>
-          <div className="lg:col-span-5">
-            <RecoveryTracker />
+          <div className="w-full">
+            <RecoveryTracker isAmharic={isAmharic} />
           </div>
         </div>
       </section>
