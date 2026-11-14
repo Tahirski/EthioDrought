@@ -1,0 +1,264 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #040507;
+  --foreground: #FBFCFD;
+}
+
+body {
+  background-color: #040507;
+  color: #FBFCFD;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism panel styling adhering to NASA UI reference */
+.nasa-panel {
+  background: rgba(37, 51, 82, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(115, 151, 189, 0.22);
+  border-radius: 1.25rem;
+}
+
+.nasa-panel-blue {
+  background: linear-gradient(180deg, rgba(32, 46, 75, 0.92) 0%, rgba(22, 33, 56, 0.95) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(115, 151, 189, 0.35);
+  border-radius: 1.5rem;
+}
+
+.nasa-panel-subtle {
+  background: rgba(18, 26, 43, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(115, 151, 189, 0.18);
+  border-radius: 1rem;
+}
+
+/* Glowing active tab pill from reference */
+.nasa-active-pill {
+  background: rgba(40, 215, 197, 0.1);
+  border: 1px solid #28D7C5;
+  box-shadow: 0 0 15px -2px rgba(40, 215, 197, 0.4);
+  color: #FBFCFD;
+}
+
+.nasa-card-glow {
+  box-shadow: 0 4px 24px -2px rgba(0, 0, 0, 0.6), 0 0 20px -5px rgba(65, 97, 159, 0.2);
+}
+
+/* Leaflet dark styling */
+.leaflet-container {
+  background-color: #040507 !important;
+  font-family: inherit;
+  width: 100%;
+  height: 100%;
+  border-radius: 1.5rem;
+}
+
+.leaflet-tile {
+  filter: brightness(0.65) invert(1) contrast(2.8) hue-rotate(200deg) saturate(0.35) brightness(0.7) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(4, 5, 7, 0.8) !important;
+  color: #999CA0 !important;
+  font-family: monospace !important;
+  font-size: 9px !important;
+  border-radius: 6px !important;
+  padding: 2px 6px !important;
+  margin: 6px !important;
+  border: 1px solid rgba(115, 151, 189, 0.25) !important;
+}
+
+.leaflet-control-attribution a {
+  color: #A8BFDC !important;
+  text-decoration: underline !important;
+}
+
+.leaflet-control-attribution a:hover {
+  color: #28D7C5 !important;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid rgba(115, 151, 189, 0.3) !important;
+  background: rgba(22, 33, 56, 0.85) !important;
+  backdrop-filter: blur(8px);
+  border-radius: 0.75rem !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background-color: transparent !important;
+  color: #A8BFDC !important;
+  border-bottom: 1px solid rgba(115, 151, 189, 0.2) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background-color: rgba(65, 97, 159, 0.3) !important;
+  color: #FBFCFD !important;
+}
+
+.leaflet-popup-content-wrapper {
+  background: rgba(22, 33, 56, 0.95) !important;
+  color: #FBFCFD !important;
+  border: 1px solid rgba(115, 151, 189, 0.4) !important;
+  border-radius: 1rem !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.7) !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(22, 33, 56, 0.95) !important;
+}
+
+/* Pulse animation for map nodes */
+@keyframes pulse-cyan {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(40, 215, 197, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 12px rgba(40, 215, 197, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(40, 215, 197, 0);
+  }
+}
+
+.node-pulse {
+  animation: pulse-cyan 2.5s infinite;
+}
+
+/* Radar rotation */
+@keyframes radar-sweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.radar-hand {
+  animation: radar-sweep 4s linear infinite;
+  transform-origin: center;
+}
+
+/* Hero section gradient */
+@keyframes hero-glow {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.hero-gradient {
+  background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(40, 215, 197, 0.08) 0%, transparent 70%);
+  animation: hero-glow 8s ease-in-out infinite;
+}
+
+/* Fade in animation */
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.8s ease-out forwards;
+}
+
+.animate-fade-in-up-delay-1 {
+  animation: fade-in-up 0.8s ease-out 0.15s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+  animation: fade-in-up 0.8s ease-out 0.3s forwards;
+  opacity: 0;
+}
+
+.animate-fade-in-up-delay-3 {
+  animation: fade-in-up 0.8s ease-out 0.45s forwards;
+  opacity: 0;
+}
+
+/* Floating card animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-float-delay {
+  animation: float 6s ease-in-out 2s infinite;
+}
+
+.animate-float-delay-2 {
+  animation: float 6s ease-in-out 4s infinite;
+}
+
+/* Step connector line */
+.step-connector {
+  position: relative;
+}
+
+.step-connector::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -1.25rem;
+  width: 2.5rem;
+  height: 2px;
+  background: linear-gradient(90deg, #28D7C5, transparent);
+}
+
+/* Signal bar sparklines */
+.signal-bar {
+  display: inline-block;
+  width: 3px;
+  margin-right: 1px;
+  border-radius: 1px;
+  vertical-align: bottom;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #040507;
+}
+::-webkit-scrollbar-thumb {
+  background: #253352;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #41619F;
+}
+
+/* Explore page full-screen map */
+.explore-map-container .leaflet-container {
+  border-radius: 0;
+}
