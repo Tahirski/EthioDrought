@@ -10,6 +10,7 @@ export interface TranslationDictionary {
     fingerprint: string;
     trendDetective: string;
     comparison: string;
+    alerts: string;
     methodology: string;
     about: string;
   };
@@ -93,6 +94,26 @@ export interface TranslationDictionary {
     whyEthiopia: string;
     nasaRelevance: string;
   };
+  story: {
+    heroTitle: string;
+    heroSubtitle: string;
+    exploreEthiopia: string;
+    discoverApproach: string;
+    problemTitle: string;
+    problemSubtitle: string;
+    historicalHeading: string;
+    recentHeading: string;
+    statLivestockTotal: string;
+    statLivestockTotalLabel: string;
+    statLivestockBorena: string;
+    statLivestockBorenaLabel: string;
+    statBorenaPop: string;
+    statBorenaPopLabel: string;
+    statAssistance: string;
+    statAssistanceLabel: string;
+    kiremtDeficit: string;
+    northernAfarDry: string;
+  };
 }
 
 export const translations: Record<Language, TranslationDictionary> = {
@@ -106,6 +127,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       fingerprint: "Drought Fingerprint",
       trendDetective: "Trend Detective",
       comparison: "Regional Comparison",
+      alerts: "Alerts (Demo)",
       methodology: "Methodology",
       about: "About ETHIODROUGHT",
     },
@@ -189,6 +211,26 @@ export const translations: Record<Language, TranslationDictionary> = {
       whyEthiopia: "Why Ethiopia? Pastoral Rangelands & Climate Stress",
       nasaRelevance: "NASA Space Apps 2026: Be An Earth System Trend Detective",
     },
+    story: {
+      heroTitle: "Beyond Rainfall. Understanding Ethiopia's Changing Climate.",
+      heroSubtitle: "An Earth-observation-powered platform for detecting, understanding, and monitoring environmental drought stress across Ethiopia.",
+      exploreEthiopia: "Explore Ethiopia",
+      discoverApproach: "Discover Our Approach",
+      problemTitle: "The Problem — Why Ethiopia?",
+      problemSubtitle: "Why traditional rainfall metrics fail to reveal deep hydrological depletion, cascading rangeland collapse, and food insecurity.",
+      historicalHeading: "Historical Drought Impact (2020–2023)",
+      recentHeading: "Recent Environmental Conditions (2026–2027)",
+      statLivestockTotal: "> 6.8 Million",
+      statLivestockTotalLabel: "Livestock Deaths Across Affected Ethiopian Regions",
+      statLivestockBorena: "> 3.3 Million",
+      statLivestockBorenaLabel: "Livestock Deaths Reported in Borena Zone Alone",
+      statBorenaPop: "~ 1.7 Million",
+      statBorenaPopLabel: "Borena Population (2023 Assessment)",
+      statAssistance: "> 50%",
+      statAssistanceLabel: "Borena Population Needing Emergency Food Assistance",
+      kiremtDeficit: "The 2026 Kiremt season experienced significant rainfall deficits across parts of Tigray, eastern Amhara, and eastern Oromia, directly suppressing crop germination and vegetative development.",
+      northernAfarDry: "Northern Afar entered the October 2026–March 2027 dry period with severely below-average livestock body conditions, acute pasture exhaustion, and critical water point drying.",
+    },
   },
   am: {
     appName: "ኢትዮ-ድርቅ (ETHIODROUGHT)",
@@ -200,6 +242,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       fingerprint: "የድርቅ ምልክት ሞተር",
       trendDetective: "የለውጥ መርማሪ",
       comparison: "የዞኖች ንፅፅር",
+      alerts: "ማስጠንቀቂያ (Demo)",
       methodology: "ሳይንሳዊ ዘዴ",
       about: "ስለ ኢትዮ-ድርቅ",
     },
@@ -282,6 +325,26 @@ export const translations: Record<Language, TranslationDictionary> = {
       title: "ስለ ኢትዮ-ድርቅ (ETHIODROUGHT)",
       whyEthiopia: "ለምን ኢትዮጵያ? የአርብቶ አደር አካባቢዎችና የአየር ንብረት ጫና",
       nasaRelevance: "የናሳ ስፔስ አፕስ 2026 ውድድር ተሳትፎ",
+    },
+    story: {
+      heroTitle: "ከዝናብ ባሻገር። የኢትዮጵያን ተለዋዋጭ አየር ንብረት መረዳት።",
+      heroSubtitle: "በኢትዮጵያ ዙሪያ የአካባቢ ድርቅ ጫናን በሳተላይት ምልከታ ለመለየት፣ ለመረዳትና ለመከታተል የተዘጋጀ ሳይንሳዊ መድረክ።",
+      exploreEthiopia: "ኢትዮጵያን ያስሱ",
+      discoverApproach: "ሳይንሳዊ አካሄዳችንን ይመልከቱ",
+      problemTitle: "ችግሩ — ለምን ኢትዮጵያ?",
+      problemSubtitle: "ባህላዊ የዝናብ መለኪያዎች ብቻቸውን ጥልቅ የአፈር መድረቅንና የአርብቶ አደሩን ቀውስ ለምን መግለጽ እንዳቃታቸው ማሳያ።",
+      historicalHeading: "ታሪካዊ የድርቅ ጉዳት (2020–2023)",
+      recentHeading: "የቅርብ ጊዜ የአካባቢ ሁኔታዎች (2026–2027)",
+      statLivestockTotal: "> 6.8 ሚሊዮን",
+      statLivestockTotalLabel: "በኢትዮጵያ የተጎዱ ክልሎች የሞቱ የቤት እንስሳት ብዛት",
+      statLivestockBorena: "> 3.3 ሚሊዮን",
+      statLivestockBorenaLabel: "በቦረና ዞን ብቻ የሞቱ የቤት እንስሳት ብዛት",
+      statBorenaPop: "~ 1.7 ሚሊዮን",
+      statBorenaPopLabel: "የቦረና ዞን ህዝብ ብዛት (በ2023 ግምገማ)",
+      statAssistance: "> 50%",
+      statAssistanceLabel: "አስቸኳይ የምግብ እርዳታ የሚያስፈልገው የቦረና ህዝብ ድርሻ",
+      kiremtDeficit: "የ2026 የክረምት ወቅት በትግራይ፣ በምስራቅ አማራና በምስራቅ ኦሮሚያ ክፍሎች ከፍተኛ የዝናብ እጥረት በማስከተሉ የሰብል ማብቀልና እድገትን ጎድቷል።",
+      northernAfarDry: "ሰሜን አፋር ከጥቅምት 2026 እስከ መጋቢት 2027 ያለውን ደረቅ ወቅት ዝቅተኛ የእንስሳት ጤና እና ከፍተኛ የግጦሽና የውሃ እጥረት ባለበት ሁኔታ ጀምሯል።",
     },
   },
 };

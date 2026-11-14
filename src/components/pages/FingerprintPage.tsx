@@ -28,6 +28,7 @@ import {
   ArrowRight,
   ShieldAlert
 } from "lucide-react";
+import { RecoveryTracker } from "@/components/RecoveryTracker";
 
 interface FingerprintPageProps {
   lang: Language;
@@ -363,6 +364,9 @@ export const FingerprintPage: React.FC<FingerprintPageProps> = ({
           </div>
         </div>
       </div>
+
+      {/* DROUGHT RECOVERY TRACKER INTEGRATION */}
+      <RecoveryTracker isAmharic={lang === "am"} />
     </div>
   );
 };

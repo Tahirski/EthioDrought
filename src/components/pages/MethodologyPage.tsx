@@ -176,24 +176,31 @@ export const MethodologyPage: React.FC<MethodologyPageProps> = ({ lang }) => {
       </div>
 
       {/* Scientific Caveats & Earth Observation Limitations */}
-      <div className="p-6 rounded-3xl nasa-panel-blue border border-amber-500/30 shadow-2xl space-y-3">
+      <div className="p-6 rounded-3xl nasa-panel-blue border border-amber-500/30 shadow-2xl space-y-4">
         <div className="flex items-center gap-2 text-amber-400 font-bold text-sm uppercase">
           <AlertTriangle className="w-4 h-4" />
-          <span>Scientific Caveats & Remote Sensing Limitations</span>
+          <span>Scientific Caveats, Limitations & Operational Boundaries</span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-text-secondary leading-relaxed">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-text-secondary leading-relaxed">
           <div className="p-4 rounded-2xl bg-panel-dark/80 border border-panel-border/20 space-y-1.5">
-            <span className="font-bold text-text-primary block">Satellite vs. Ground Truth</span>
+            <span className="font-bold text-text-primary block">1. Satellite Indicators vs. Ground Impacts</span>
             <p>
-              Satellites observe canopy reflectance and microwave dielectric properties, not actual grain yields in bags or live cattle weights. Cloud cover, atmospheric aerosols from savanna fires, and sensor calibration drifts introduce uncertainties.
+              Satellite observations measure physical reflectance, precipitation radar echoes, and soil dielectric properties. Satellite indicators do not directly confirm crop losses, livestock mortality, household food insecurity, or humanitarian distress on the ground.
             </p>
           </div>
 
           <div className="p-4 rounded-2xl bg-panel-dark/80 border border-panel-border/20 space-y-1.5">
-            <span className="font-bold text-text-primary block">Correlation Does Not Equal Causation</span>
+            <span className="font-bold text-text-primary block">2. Environmental Recovery Lag</span>
             <p>
-              Vegetation browning (negative NDVI) can be caused by overgrazing, invasive bush encroachment (e.g., <em>Acacia drepanolobium</em>), or pest outbreaks, rather than rainfall deficit alone. This is why the Drought Fingerprint Engine insists on multivariate cross-checking.
+              Vegetation greenness frequently exhibits a 30 to 60-day lag behind precipitation failure. Conversely, superficial rainfall can prompt rapid weed green-up while deep root-zone soils remain starved. Environmental recovery does not equal household livelihood restoration.
+            </p>
+          </div>
+
+          <div className="p-4 rounded-2xl bg-panel-dark/80 border border-panel-border/20 space-y-1.5">
+            <span className="font-bold text-text-primary block">3. Alerts Are Not Disaster Declarations</span>
+            <p>
+              ETHIODROUGHT alerts are scientific monitoring notifications intended to guide research and prompt field inspection. They are not official disaster declarations and do not replace official emergency response systems (such as EDRMC).
             </p>
           </div>
         </div>

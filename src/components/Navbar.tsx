@@ -16,6 +16,7 @@ import {
   GitCompare,
   Database,
   BookOpen,
+  Bell,
 } from "lucide-react";
 
 interface NavItem {
@@ -36,7 +37,8 @@ export const Navbar: React.FC = () => {
     { href: "/fingerprint", label: t.nav.fingerprint, icon: <Fingerprint className="w-3.5 h-3.5" /> },
     { href: "/trends", label: t.nav.trendDetective, icon: <TrendingUp className="w-3.5 h-3.5" /> },
     { href: "/compare", label: t.nav.comparison, icon: <GitCompare className="w-3.5 h-3.5" /> },
-    { href: "/data", label: "Data & Reports", icon: <Database className="w-3.5 h-3.5" /> },
+    { href: "/alerts", label: t.nav.alerts, icon: <Bell className="w-3.5 h-3.5" /> },
+    { href: "/data", label: "Data & Transparency", icon: <Database className="w-3.5 h-3.5" /> },
     { href: "/methodology", label: t.nav.methodology, icon: <BookOpen className="w-3.5 h-3.5" /> },
   ];
 

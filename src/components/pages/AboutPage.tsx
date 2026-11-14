@@ -39,7 +39,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ lang }) => {
       </div>
 
       {/* "Why Ethiopia?" Section - Mandatory Prompt Requirement */}
-      <div className="p-6 rounded-3xl nasa-panel border border-panel-border/30 space-y-4">
+      <div className="p-6 rounded-3xl nasa-panel border border-panel-border/30 space-y-5">
         <div className="flex items-center gap-2">
           <MapPin className="w-5 h-5 text-accent-cyan" />
           <h2 className="text-lg font-bold text-text-primary tracking-wide">
@@ -47,7 +47,48 @@ export const AboutPage: React.FC<AboutPageProps> = ({ lang }) => {
           </h2>
         </div>
 
-        <div className="space-y-3 text-xs text-text-secondary leading-relaxed">
+        {/* Empirical Numerical Crisis Evidence */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 pt-2">
+          <div className="p-4 rounded-2xl bg-panel-dark/80 border border-red-500/30">
+            <div className="text-2xl font-mono font-bold text-red-400">&gt; 6.8M</div>
+            <div className="text-[11px] font-mono text-accent-light uppercase mt-1">Livestock Deaths (2020–2023)</div>
+            <p className="text-[10px] text-text-secondary mt-1">Across affected Ethiopian pastoral regions during 5 consecutive failed rains.</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-panel-dark/80 border border-red-500/30">
+            <div className="text-2xl font-mono font-bold text-red-400">&gt; 3.3M</div>
+            <div className="text-[11px] font-mono text-accent-light uppercase mt-1">Deaths in Borena Zone Alone</div>
+            <p className="text-[10px] text-text-secondary mt-1">Near-total decimation of traditional pastoral cattle herds.</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-panel-dark/80 border border-amber-500/30">
+            <div className="text-2xl font-mono font-bold text-amber-400">~ 1.7M</div>
+            <div className="text-[11px] font-mono text-accent-light uppercase mt-1">Borena Population (2023)</div>
+            <p className="text-[10px] text-text-secondary mt-1">Pastoralist communities dependent on deep tula wells.</p>
+          </div>
+          <div className="p-4 rounded-2xl bg-panel-dark/80 border border-amber-500/30">
+            <div className="text-2xl font-mono font-bold text-amber-400">&gt; 50%</div>
+            <div className="text-[11px] font-mono text-accent-light uppercase mt-1">Food Assistance Needed</div>
+            <p className="text-[10px] text-text-secondary mt-1">Over half the population required emergency humanitarian aid.</p>
+          </div>
+        </div>
+
+        {/* Recent 2026-2027 Conditions */}
+        <div className="p-4 rounded-2xl bg-panel-dark/60 border border-accent-secondary/30 space-y-2 text-xs">
+          <div className="font-bold text-text-primary flex items-center gap-1.5 text-accent-cyan">
+            <span>Recent Environmental Dynamics (2026–2027 Monitoring Cycle)</span>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-text-secondary pt-1">
+            <div className="p-3 rounded-xl bg-panel-dark border border-panel-border/20">
+              <span className="font-bold text-text-primary block mb-1">2026 Kiremt Monsoon Deficits:</span>
+              Significant rainfall deficits across parts of Tigray, eastern Amhara, and eastern Oromia directly suppressed crop germination and vegetative development.
+            </div>
+            <div className="p-3 rounded-xl bg-panel-dark border border-panel-border/20">
+              <span className="font-bold text-text-primary block mb-1">Northern Afar Dry Period:</span>
+              Entered the October 2026–March 2027 dry period with severely below-average livestock conditions, rapid forage exhaustion, and drying surface watering points.
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-3 text-xs text-text-secondary leading-relaxed pt-2">
           <p>
             In southern and eastern Ethiopia—particularly in the pastoral rangelands of <strong>Borena Zone</strong> and the arid lowlands of Somali Region—communities depend on seasonal rainfall cycles to sustain livestock, open grazing pastures, and deep traditional watering wells (known as <em>tula</em> wells).
           </p>

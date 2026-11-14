@@ -6,6 +6,8 @@ import { translations } from "@/data/translations";
 import { CsvUploadModal } from "@/components/CsvUploadModal";
 import { ReportExportModal } from "@/components/ReportExportModal";
 import { MonthlyRecord } from "@/data/monthlyObservations";
+import { DATASET_QUALITY_RECORDS } from "@/data/alertsData";
+import { DataQualityCard } from "@/components/DataQualityCard";
 import {
   Database,
   FileUp,
@@ -13,6 +15,9 @@ import {
   ExternalLink,
   Table,
   FileText,
+  ShieldCheck,
+  Clock,
+  Sparkles,
 } from "lucide-react";
 
 export default function DataRoute() {
@@ -102,104 +107,46 @@ export default function DataRoute() {
 
       {/* TAB A: NASA Dataset Catalog & CSV Upload */}
       {activeTab === "catalog" && (
-        <div className="space-y-6">
-          {/* NASA Dataset Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {/* FLDAS */}
-            <div className="p-5 rounded-3xl nasa-panel border border-panel-border/30 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between pb-2 mb-3 border-b border-panel-border/30">
-                  <span className="font-bold text-sky-400 text-sm">
-                    NASA FLDAS Noah LSM
-                  </span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-sky-950 text-sky-300 border border-sky-800/40">
-                    0.1° (~10km)
-                  </span>
-                </div>
-                <p className="text-[11px] text-text-secondary leading-relaxed mb-3">
-                  Famine Land Data Assimilation System. Simulates root-zone soil
-                  water storage (0-100cm) for drought early warning across
-                  Africa.
-                </p>
-                <div className="space-y-1 text-[10px] text-text-subtle">
-                  <div>Variable: Soil Moisture Content (m³/m³)</div>
-                  <div>Temporal: Monthly (1982–Present)</div>
-                  <div>Model: Noah Land Surface Model 3.6.1</div>
-                </div>
+        <div className="space-y-8">
+          {/* Section 1: Operational Integrated Datasets */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <h2 className="text-base font-bold text-text-primary uppercase tracking-wider">
+                  Operational Integrated Satellite Datasets
+                </h2>
               </div>
-              <a
-                href="https://ldas.gsfc.nasa.gov/fldas"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 text-accent-cyan hover:underline flex items-center gap-1 text-[10px]"
-              >
-                ldas.gsfc.nasa.gov/fldas
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <span className="text-xs font-mono text-emerald-400">
+                3 Constellations Fully Integrated
+              </span>
             </div>
 
-            {/* GPM IMERG */}
-            <div className="p-5 rounded-3xl nasa-panel border border-panel-border/30 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between pb-2 mb-3 border-b border-panel-border/30">
-                  <span className="font-bold text-accent-cyan text-sm">
-                    NASA GPM IMERG
-                  </span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-800/40">
-                    0.1° (~10km)
-                  </span>
-                </div>
-                <p className="text-[11px] text-text-secondary leading-relaxed mb-3">
-                  Global Precipitation Measurement Integrated Multi-satellitE
-                  Retrievals. Final Run V07 monthly precipitation accumulation.
-                </p>
-                <div className="space-y-1 text-[10px] text-text-subtle">
-                  <div>Variable: Precipitation (mm/month)</div>
-                  <div>Temporal: Monthly (2000–Present)</div>
-                  <div>Sensor: DPR &amp; Radiometer Constellation</div>
-                </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              {DATASET_QUALITY_RECORDS.filter((d) => d.processingStatus === "Operational Baseline").map((dataset) => (
+                <DataQualityCard key={dataset.datasetId} dataset={dataset} isAmharic={lang === "am"} />
+              ))}
+            </div>
+          </div>
+
+          {/* Section 2: Planned Satellite Integrations */}
+          <div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
+                <h2 className="text-base font-bold text-text-primary uppercase tracking-wider">
+                  Planned Satellite Missions (Under Architecture Evaluation)
+                </h2>
               </div>
-              <a
-                href="https://gpm.nasa.gov/data"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 text-accent-cyan hover:underline flex items-center gap-1 text-[10px]"
-              >
-                gpm.nasa.gov/data
-                <ExternalLink className="w-3 h-3" />
-              </a>
+              <span className="text-xs font-mono text-amber-400">
+                Phase 2 Expansion Roadmap
+              </span>
             </div>
 
-            {/* MODIS NDVI */}
-            <div className="p-5 rounded-3xl nasa-panel border border-panel-border/30 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center justify-between pb-2 mb-3 border-b border-panel-border/30">
-                  <span className="font-bold text-emerald-400 text-sm">
-                    NASA MODIS Terra/Aqua
-                  </span>
-                  <span className="text-[9px] px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-800/40">
-                    1km / 0.05°
-                  </span>
-                </div>
-                <p className="text-[11px] text-text-secondary leading-relaxed mb-3">
-                  MOD13A2 / MYD13A2 composites of Normalized Difference
-                  Vegetation Index monitoring rangeland canopy greenness.
-                </p>
-                <div className="space-y-1 text-[10px] text-text-subtle">
-                  <div>Variable: NDVI (dimensionless)</div>
-                  <div>Temporal: 16-Day / Monthly (2000–Present)</div>
-                  <div>Sensor: MODIS Spectroradiometer</div>
-                </div>
-              </div>
-              <a
-                href="https://modis.gsfc.nasa.gov/data/"
-                target="_blank"
-                rel="noreferrer"
-                className="mt-4 text-accent-cyan hover:underline flex items-center gap-1 text-[10px]"
-              >
-                modis.gsfc.nasa.gov/data
-                <ExternalLink className="w-3 h-3" />
-              </a>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {DATASET_QUALITY_RECORDS.filter((d) => d.processingStatus !== "Operational Baseline").map((dataset) => (
+                <DataQualityCard key={dataset.datasetId} dataset={dataset} isAmharic={lang === "am"} />
+              ))}
             </div>
           </div>
 
