@@ -14,7 +14,7 @@ import { AiInsightsSidebar } from "@/components/nasa/AiInsightsSidebar";
 import { BottomCardsRow } from "@/components/nasa/BottomCardsRow";
 import { RecoveryTracker } from "@/components/RecoveryTracker";
 import { RegionalPriorityRanking } from "@/components/RegionalPriorityRanking";
-import { ChevronDown, Layers, Droplets, Sprout, ArrowRight, Activity, ShieldAlert, Sparkles } from "lucide-react";
+import { ChevronDown, Layers, Droplets, Sprout, ArrowRight, Activity, ShieldAlert, Sparkles, Compass } from "lucide-react";
 
 const EthiopiaDottedGlobe = dynamic(
   () => import("@/components/nasa/EthiopiaDottedGlobe").then((m) => m.EthiopiaDottedGlobe),
@@ -148,13 +148,27 @@ export default function HomePage() {
 
         </div>
 
-        {/* Scroll Indicator to Detailed Analytics */}
-        <div className="w-full flex justify-center pt-2">
+        {/* Navigation & Scientific Story Action Buttons */}
+        <div className="w-full flex flex-wrap items-center justify-center gap-3 pt-3">
+          <Link
+            href="/problem"
+            className="flex items-center gap-2 text-xs font-mono text-[#FBFCFD] hover:text-accent-cyan transition-all py-2.5 px-5 rounded-full bg-accent-blue/30 hover:bg-accent-blue/50 border border-accent-blue/50 backdrop-blur-md shadow-lg group"
+          >
+            <span>{isAmharic ? "ሳይንሳዊ መንገዳችንን ይወቁ" : "DISCOVER OUR APPROACH"}</span>
+            <ArrowRight className="w-3.5 h-3.5 text-accent-cyan group-hover:translate-x-1 transition-transform" />
+          </Link>
+          <Link
+            href="/explore"
+            className="flex items-center gap-2 text-xs font-mono text-accent-cyan hover:text-white transition-all py-2.5 px-5 rounded-full bg-panel-dark/80 hover:bg-panel-dark border border-accent-cyan/40 backdrop-blur-md shadow-lg"
+          >
+            <span>{isAmharic ? "ኢትዮጵያን ያስሱ" : "EXPLORE ETHIOPIA"}</span>
+            <Compass className="w-3.5 h-3.5" />
+          </Link>
           <button
             onClick={scrollToAnalytics}
             className="flex items-center gap-2 text-xs font-mono text-[#A8BFDC] hover:text-accent-cyan transition-colors py-2 px-4 rounded-full bg-panel-dark/40 border border-white/5 backdrop-blur-md"
           >
-            <span>{isAmharic ? "ዝርዝር ሳይንሳዊ መረጃዎችን ይመልከቱ" : "EXPLORE DEEP MULTI-SENSOR ANALYTICS"}</span>
+            <span>{isAmharic ? "ዝርዝር ሳይንሳዊ መረጃዎች" : "DEEP ANALYTICS"}</span>
             <ChevronDown className="w-3.5 h-3.5 animate-bounce" />
           </button>
         </div>

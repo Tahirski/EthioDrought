@@ -18,12 +18,18 @@ import {
   BookOpen,
   Bell,
   Layers,
+  AlertTriangle,
+  Sprout,
+  FlaskConical,
+  Lightbulb,
 } from "lucide-react";
 
 interface NavItem {
   href: string;
   label: string;
+  labelAm: string;
   icon: React.ReactNode;
+  group: "story" | "workspace";
 }
 
 export const Navbar: React.FC = () => {
@@ -33,15 +39,17 @@ export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navItems: NavItem[] = [
-    { href: "/", label: t.nav.overview, icon: <Satellite className="w-3.5 h-3.5" /> },
-    { href: "/explore", label: "Explore", icon: <Map className="w-3.5 h-3.5" /> },
-    { href: "/fingerprint", label: t.nav.fingerprint, icon: <Fingerprint className="w-3.5 h-3.5" /> },
-    { href: "/trends", label: t.nav.trendDetective, icon: <TrendingUp className="w-3.5 h-3.5" /> },
-    { href: "/compare", label: t.nav.comparison, icon: <GitCompare className="w-3.5 h-3.5" /> },
-    { href: "/alerts", label: t.nav.alerts, icon: <Bell className="w-3.5 h-3.5" /> },
-    { href: "/datasets", label: "Datasets", icon: <Layers className="w-3.5 h-3.5" /> },
-    { href: "/data", label: "Data & Transparency", icon: <Database className="w-3.5 h-3.5" /> },
-    { href: "/methodology", label: t.nav.methodology, icon: <BookOpen className="w-3.5 h-3.5" /> },
+    // Story pages
+    { href: "/problem",    label: "The Problem",  labelAm: "ችግሩ",         icon: <AlertTriangle className="w-3.5 h-3.5" />, group: "story" },
+    { href: "/science",    label: "The Science",  labelAm: "ሳይንሱ",         icon: <FlaskConical  className="w-3.5 h-3.5" />, group: "story" },
+    { href: "/solution",   label: "Our Solution", labelAm: "መፍትሔው",        icon: <Lightbulb     className="w-3.5 h-3.5" />, group: "story" },
+    // Workspace pages
+    { href: "/explore",    label: "Explore",      labelAm: "ካርታ",          icon: <Map           className="w-3.5 h-3.5" />, group: "workspace" },
+    { href: "/fingerprint",label: "Fingerprint",  labelAm: "ሳምንተኛ",        icon: <Fingerprint   className="w-3.5 h-3.5" />, group: "workspace" },
+    { href: "/trends",     label: "Trends",       labelAm: "አዝማሚያ",        icon: <TrendingUp    className="w-3.5 h-3.5" />, group: "workspace" },
+    { href: "/compare",    label: "Compare",      labelAm: "ንፅፅር",          icon: <GitCompare    className="w-3.5 h-3.5" />, group: "workspace" },
+    { href: "/alerts",     label: "Alerts",       labelAm: "ማስጠንቀቂያ",      icon: <Bell          className="w-3.5 h-3.5" />, group: "workspace" },
+    { href: "/data",       label: "Data",         labelAm: "ዳታ",            icon: <Database      className="w-3.5 h-3.5" />, group: "workspace" },
   ];
 
   const isActive = (href: string) => {
@@ -76,9 +84,10 @@ export const Navbar: React.FC = () => {
           </div>
         </Link>
 
-        {/* Center: Pill Navigation */}
+        {/* Center: Grouped Pill Navigation — Story | Workspace */}
         <nav className="hidden xl:flex items-center gap-1 bg-panel-dark/80 p-1 rounded-full border border-panel-border/40 shadow-inner">
-          {navItems.map((item) => (
+          {/* Story group */}
+          {navItems.filter(i => i.group === "story").map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -89,7 +98,26 @@ export const Navbar: React.FC = () => {
               }`}
             >
               {item.icon}
-              <span className="hidden 2xl:inline">{item.label}</span>
+              <span className="hidden 2xl:inline">{lang === "am" ? item.labelAm : item.label}</span>
+            </Link>
+          ))}
+
+          {/* Divider */}
+          <div className="w-px h-5 bg-panel-border/40 mx-1" />
+
+          {/* Workspace group */}
+          {navItems.filter(i => i.group === "workspace").map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`px-3.5 py-1.5 text-[11px] font-medium rounded-full transition-all duration-200 tracking-wider flex items-center gap-1.5 ${
+                isActive(item.href)
+                  ? "nasa-active-pill font-semibold"
+                  : "text-text-secondary hover:text-text-primary hover:bg-white/5"
+              }`}
+            >
+              {item.icon}
+              <span className="hidden 2xl:inline">{lang === "am" ? item.labelAm : item.label}</span>
             </Link>
           ))}
         </nav>
@@ -124,21 +152,40 @@ export const Navbar: React.FC = () => {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="xl:hidden border-t border-panel-border/30 bg-[#040507]/95 backdrop-blur-xl px-4 pb-4 pt-3">
-          <div className="grid grid-cols-2 gap-2 text-xs">
-            {navItems.map((item) => (
+        <div className="xl:hidden border-t border-panel-border/30 bg-[#040507]/95 backdrop-blur-xl px-4 pb-4 pt-3 space-y-3">
+          <div className="text-[9px] font-mono text-text-subtle uppercase tracking-widest px-1">Story</div>
+          <div className="grid grid-cols-3 gap-2 text-xs">
+            {navItems.filter(i => i.group === "story").map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`p-3 rounded-xl flex items-center gap-2 transition-all ${
+                className={`p-3 rounded-xl flex flex-col items-center gap-1.5 text-center transition-all ${
                   isActive(item.href)
                     ? "bg-accent-blue/30 text-accent-cyan border border-accent-cyan/40"
                     : "bg-panel-dark text-text-secondary hover:text-text-primary"
                 }`}
               >
                 {item.icon}
-                <span>{item.label}</span>
+                <span className="text-[9px]">{lang === "am" ? item.labelAm : item.label}</span>
+              </Link>
+            ))}
+          </div>
+          <div className="text-[9px] font-mono text-text-subtle uppercase tracking-widest px-1">Workspace</div>
+          <div className="grid grid-cols-3 gap-2 text-xs">
+            {navItems.filter(i => i.group === "workspace").map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`p-3 rounded-xl flex flex-col items-center gap-1.5 text-center transition-all ${
+                  isActive(item.href)
+                    ? "bg-accent-blue/30 text-accent-cyan border border-accent-cyan/40"
+                    : "bg-panel-dark text-text-secondary hover:text-text-primary"
+                }`}
+              >
+                {item.icon}
+                <span className="text-[9px]">{lang === "am" ? item.labelAm : item.label}</span>
               </Link>
             ))}
           </div>

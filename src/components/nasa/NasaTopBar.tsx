@@ -21,6 +21,7 @@ export const NasaTopBar: React.FC<NasaTopBarProps> = ({
 
   const navItems = [
     { id: "home", label: isAmharic ? "መነሻ" : "HOME", href: "/" },
+    { id: "story", label: isAmharic ? "ሳይንስ" : "STORY", href: "/problem" },
     { id: "signals", label: isAmharic ? "ምልክቶች" : "SIGNALS", href: "/fingerprint" },
     { id: "regions", label: isAmharic ? "ክልሎች" : "REGIONS", href: "/compare" },
     { id: "reports", label: isAmharic ? "ሪፖርቶች" : "REPORTS", href: "/data" },
@@ -44,29 +45,29 @@ export const NasaTopBar: React.FC<NasaTopBarProps> = ({
       </Link>
 
       {/* Center Nav Pills matching reference: HOME has glowing cyan outer capsule ring */}
-      <nav className="hidden md:flex items-center gap-3 lg:gap-6 bg-black/40 backdrop-blur-xl px-3 py-1.5 rounded-full border border-[rgba(168,191,220,0.15)] shadow-2xl">
+      <nav className="hidden md:flex items-center gap-2 lg:gap-4 bg-black/40 backdrop-blur-xl px-3 py-1.5 rounded-full border border-[rgba(168,191,220,0.15)] shadow-2xl">
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
           if (isActive) {
             return (
               <div key={item.id} className="nasa-glowing-pill">
-                <button
-                  onClick={() => setActiveTab(item.id)}
+                <Link
+                  href={item.href}
                   className="nasa-glowing-pill-inner"
                 >
                   {item.label}
-                </button>
+                </Link>
               </div>
             );
           }
           return (
-            <button
+            <Link
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
-              className="px-5 py-2 font-michroma text-[11px] tracking-[0.14em] text-[#999CA0] hover:text-[#FBFCFD] transition-colors uppercase"
+              href={item.href}
+              className="px-4 py-2 font-michroma text-[11px] tracking-[0.14em] text-[#999CA0] hover:text-[#FBFCFD] transition-colors uppercase"
             >
               {item.label}
-            </button>
+            </Link>
           );
         })}
       </nav>
