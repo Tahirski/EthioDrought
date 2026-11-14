@@ -6,11 +6,14 @@ export interface TranslationDictionary {
   taglineSecondary: string;
   nav: {
     overview: string;
+    explore: string;
     droughtMap: string;
     fingerprint: string;
     trendDetective: string;
     comparison: string;
     alerts: string;
+    datasets: string;
+    data: string;
     methodology: string;
     about: string;
   };
@@ -123,11 +126,14 @@ export const translations: Record<Language, TranslationDictionary> = {
     taglineSecondary: "Turning NASA Earth observations into understandable environmental intelligence for Ethiopia.",
     nav: {
       overview: "Overview",
+      explore: "Explore",
       droughtMap: "Drought Map",
       fingerprint: "Drought Fingerprint",
       trendDetective: "Trend Detective",
       comparison: "Regional Comparison",
       alerts: "Alerts (Demo)",
+      datasets: "Datasets",
+      data: "Data & Transparency",
       methodology: "Methodology",
       about: "About ETHIODROUGHT",
     },
@@ -238,12 +244,15 @@ export const translations: Record<Language, TranslationDictionary> = {
     taglineSecondary: "የናሳ ሳተላይት መረጃዎችን ወደ ግልጽ የአካባቢና የድርቅ ሳይንሳዊ ግንዛቤ መቀየር።",
     nav: {
       overview: "አጠቃላይ እይታ",
+      explore: "ኢትዮጵያን ያስሱ",
       droughtMap: "የድርቅ ካርታ",
-      fingerprint: "የድርቅ ምልክት ሞተር",
-      trendDetective: "የለውጥ መርማሪ",
-      comparison: "የዞኖች ንፅፅር",
+      fingerprint: "የድርቅ አሻራ ሞተር",
+      trendDetective: "የአዝማሚያ መርማሪ",
+      comparison: "የክልሎች ንጽጽር",
       alerts: "ማስጠንቀቂያ (Demo)",
-      methodology: "ሳይንሳዊ ዘዴ",
+      datasets: "የመረጃ ስብስቦች",
+      data: "መረጃ እና ግልጽነት",
+      methodology: "ሳይንሳዊ ስነ-ዘዴ",
       about: "ስለ ኢትዮ-ድርቅ",
     },
     hero: {
