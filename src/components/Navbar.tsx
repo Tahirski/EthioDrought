@@ -17,6 +17,7 @@ import {
   Database,
   BookOpen,
   Bell,
+  Layers,
 } from "lucide-react";
 
 interface NavItem {
@@ -38,6 +39,7 @@ export const Navbar: React.FC = () => {
     { href: "/trends", label: t.nav.trendDetective, icon: <TrendingUp className="w-3.5 h-3.5" /> },
     { href: "/compare", label: t.nav.comparison, icon: <GitCompare className="w-3.5 h-3.5" /> },
     { href: "/alerts", label: t.nav.alerts, icon: <Bell className="w-3.5 h-3.5" /> },
+    { href: "/datasets", label: "Datasets", icon: <Layers className="w-3.5 h-3.5" /> },
     { href: "/data", label: "Data & Transparency", icon: <Database className="w-3.5 h-3.5" /> },
     { href: "/methodology", label: t.nav.methodology, icon: <BookOpen className="w-3.5 h-3.5" /> },
   ];
@@ -50,17 +52,18 @@ export const Navbar: React.FC = () => {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#040507]/90 backdrop-blur-xl border-b border-panel-border/30">
       <div className="max-w-[1720px] mx-auto px-4 lg:px-8 py-2.5 flex items-center justify-between">
-        {/* Left: Brand */}
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          {/* Satellite emblem */}
-          <div className="relative flex items-center justify-center w-9 h-9 rounded-xl bg-panel-dark border border-accent-secondary/40 shadow-inner group-hover:border-accent-cyan/80 transition-colors">
-            <div className="w-4 h-4 rounded-full border-2 border-accent-cyan flex items-center justify-center">
-              <div className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-ping opacity-75" />
-            </div>
+        {/* Left: Brand with Official Mission Patch Logo */}
+        <Link href="/" className="flex items-center gap-3.5 group shrink-0">
+          <div className="relative flex items-center justify-center w-11 h-11 rounded-2xl overflow-hidden bg-panel-dark border-2 border-accent-cyan/40 shadow-[0_0_18px_rgba(40,215,197,0.35)] group-hover:border-accent-cyan group-hover:shadow-[0_0_24px_rgba(40,215,197,0.6)] transition-all duration-300 group-hover:scale-105 shrink-0">
+            <img
+              src="/logo.jpg"
+              alt="ETHIODROUGHT Satellite Mission Patch"
+              className="w-full h-full object-cover"
+            />
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-2">
-              <span className="font-mono tracking-wider font-bold text-sm text-text-primary group-hover:text-accent-cyan transition-colors">
+              <span className="font-heading tracking-wider font-bold text-base text-text-primary group-hover:text-accent-cyan transition-colors">
                 {t.appName}
               </span>
               <span className="hidden sm:inline px-1.5 py-0.5 text-[8px] font-mono tracking-widest uppercase bg-accent-blue/30 text-accent-light rounded border border-accent-blue/50">

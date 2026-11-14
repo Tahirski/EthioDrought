@@ -141,8 +141,10 @@ export default function HomePage() {
             {/* Left Content Column */}
             <div className="lg:col-span-6 flex flex-col items-start z-10">
               {/* Mission Badge Eyebrow */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-panel-dark/90 border border-accent-secondary/35 mb-6 backdrop-blur-md shadow-sm">
-                <span className="w-2 h-2 rounded-full bg-accent-cyan animate-pulse" />
+              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-panel-dark/90 border border-accent-secondary/35 mb-6 backdrop-blur-md shadow-sm">
+                <div className="w-5 h-5 rounded-full overflow-hidden border border-accent-cyan/60 shrink-0">
+                  <img src="/logo.jpg" alt="Mission Patch Logo" className="w-full h-full object-cover" />
+                </div>
                 <span className="tracking-widest text-accent-light uppercase text-[11px] font-mono font-medium">
                   NASA SPACE APPS 2026 · EARTH SYSTEM INTELLIGENCE
                 </span>

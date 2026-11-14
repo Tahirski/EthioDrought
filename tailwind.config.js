@@ -39,8 +39,9 @@ module.exports = {
         }
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
-        mono: ["var(--font-mono)", "Menlo", "Monaco", "Consolas", "monospace"],
+        sans: ["'Plus Jakarta Sans'", "var(--font-sans)", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+        heading: ["'Space Grotesk'", "'Plus Jakarta Sans'", "sans-serif"],
+        mono: ["'JetBrains Mono'", "var(--font-mono)", "Menlo", "Monaco", "Consolas", "monospace"],
       },
       boxShadow: {
         'panel': '0 8px 32px 0 rgba(0, 0, 0, 0.5)',
