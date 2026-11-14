@@ -6,7 +6,7 @@ import dynamic from "next/dynamic";
 import { useApp } from "@/context/AppContext";
 import { translations } from "@/data/translations";
 import { NasaTopBar } from "@/components/nasa/NasaTopBar";
-import { EthiopiaDottedGlobe, ETHIOPIA_HOTSPOTS, Hotspot } from "@/components/nasa/EthiopiaDottedGlobe";
+import { ETHIOPIA_HOTSPOTS, Hotspot } from "@/components/nasa/EthiopiaDottedGlobe";
 import { RegionDetailCard } from "@/components/nasa/RegionDetailCard";
 import { MiniRadarCard } from "@/components/nasa/MiniRadarCard";
 import { ExploreChatbotBar } from "@/components/nasa/ExploreChatbotBar";
@@ -15,6 +15,18 @@ import { BottomCardsRow } from "@/components/nasa/BottomCardsRow";
 import { RecoveryTracker } from "@/components/RecoveryTracker";
 import { RegionalPriorityRanking } from "@/components/RegionalPriorityRanking";
 import { ChevronDown, Layers, Droplets, Sprout, ArrowRight, Activity, ShieldAlert, Sparkles } from "lucide-react";
+
+const EthiopiaDottedGlobe = dynamic(
+  () => import("@/components/nasa/EthiopiaDottedGlobe").then((m) => m.EthiopiaDottedGlobe),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="w-full h-full flex items-center justify-center">
+        <div className="w-16 h-16 rounded-full border-2 border-accent-cyan/30 border-t-accent-cyan animate-spin" />
+      </div>
+    ),
+  }
+);
 
 const DynamicMap = dynamic(
   () => import("@/components/LeafletMapInner"),
