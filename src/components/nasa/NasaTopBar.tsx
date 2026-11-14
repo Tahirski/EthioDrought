@@ -2,8 +2,9 @@
 
 import React from "react";
 import Link from "next/link";
-import { Search, Bell, Settings, Globe2 } from "lucide-react";
+import { Search, Bell, Settings, Globe2, User } from "lucide-react";
 import { useApp } from "@/context/AppContext";
+import { useAuth } from "@/context/AuthContext";
 
 interface NasaTopBarProps {
   activeTab: string;
@@ -17,6 +18,7 @@ export const NasaTopBar: React.FC<NasaTopBarProps> = ({
   onOpenSearch,
 }) => {
   const { lang, toggleLang } = useApp();
+  const { user, isAuthenticated, toggleProfileModal, openLogin } = useAuth();
   const isAmharic = lang === "am";
 
   const navItems = [
@@ -111,14 +113,29 @@ export const NasaTopBar: React.FC<NasaTopBarProps> = ({
           <Settings className="w-4 h-4 group-hover:rotate-45 transition-transform" />
         </button>
 
-        {/* Round User Avatar matching reference */}
-        <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-accent-cyan/60 shadow-[0_0_15px_rgba(40,215,197,0.4)] cursor-pointer hover:scale-105 transition-transform">
-          <img
-            src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop&crop=face"
-            alt="Lead Specialist"
-            className="w-full h-full object-cover"
+        {/* Round User Avatar matching reference — Opens Profile or Login Modal */}
+        <button
+          onClick={isAuthenticated ? toggleProfileModal : openLogin}
+          className="relative w-10 h-10 rounded-full border-2 border-accent-cyan/60 shadow-[0_0_15px_rgba(40,215,197,0.4)] cursor-pointer hover:scale-105 transition-transform flex items-center justify-center bg-[#121929] group shrink-0 overflow-hidden"
+          title={isAuthenticated && user ? `${user.name} (${user.role})` : "Sign In / Register"}
+        >
+          {isAuthenticated && user?.avatarUrl ? (
+            <img
+              src={user.avatarUrl}
+              alt={user.name}
+              className="w-full h-full object-cover rounded-full"
+            />
+          ) : (
+            <User className="w-5 h-5 text-accent-cyan" />
+          )}
+
+          {/* Active Status Pulse */}
+          <span
+            className={`absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full border border-[#040507] ${
+              isAuthenticated ? "bg-emerald-400" : "bg-amber-400 animate-pulse"
+            }`}
           />
-        </div>
+        </button>
       </div>
     </header>
   );

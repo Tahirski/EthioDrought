@@ -22,7 +22,9 @@ import {
   Sprout,
   FlaskConical,
   Lightbulb,
+  User,
 } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
 
 interface NavItem {
   href: string;
@@ -34,6 +36,7 @@ interface NavItem {
 
 export const Navbar: React.FC = () => {
   const { lang, toggleLang } = useApp();
+  const { user, isAuthenticated, toggleProfileModal, openLogin } = useAuth();
   const t = translations[lang];
   const pathname = usePathname();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -139,6 +142,30 @@ export const Navbar: React.FC = () => {
             <Satellite className="w-3 h-3 text-accent-cyan" />
             <span>Space Apps 2026</span>
           </div>
+
+          {/* Round User Profile Button */}
+          <button
+            onClick={isAuthenticated ? toggleProfileModal : openLogin}
+            className="relative w-9 h-9 rounded-full border-2 border-accent-cyan/60 shadow-[0_0_12px_rgba(40,215,197,0.35)] cursor-pointer hover:scale-105 transition-transform flex items-center justify-center bg-[#121929] shrink-0 overflow-hidden"
+            title={isAuthenticated && user ? `${user.name} (${user.role})` : "Sign In / Register"}
+          >
+            {isAuthenticated && user?.avatarUrl ? (
+              <img
+                src={user.avatarUrl}
+                alt={user.name}
+                className="w-full h-full object-cover rounded-full"
+              />
+            ) : (
+              <User className="w-4 h-4 text-accent-cyan" />
+            )}
+
+            {/* Active Status Pulse */}
+            <span
+              className={`absolute bottom-0 right-0 w-2 h-2 rounded-full border border-[#040507] ${
+                isAuthenticated ? "bg-emerald-400" : "bg-amber-400 animate-pulse"
+              }`}
+            />
+          </button>
 
           {/* Mobile Menu Toggle */}
           <button
