@@ -2,7 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
-import { Search, Bell, Settings, Globe2, User } from "lucide-react";
+import { Search, Bell, Settings, Globe2, User, Lock } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { useAuth } from "@/context/AuthContext";
 
@@ -112,6 +112,16 @@ export const NasaTopBar: React.FC<NasaTopBarProps> = ({
         >
           <Settings className="w-4 h-4 group-hover:rotate-45 transition-transform" />
         </button>
+
+        {/* Visible Login / Sign Up Portal Button */}
+        <Link
+          href="/login"
+          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-accent-cyan/15 hover:bg-accent-cyan text-accent-cyan hover:text-[#040507] border border-accent-cyan/40 text-[11px] font-mono font-bold tracking-wider transition-all shadow-[0_0_12px_rgba(40,215,197,0.25)] hover:scale-105"
+          title="Open Authentication Portal"
+        >
+          <Lock className="w-3 h-3" />
+          <span>{isAuthenticated && user ? (isAmharic ? "መለያ" : "PORTAL") : (isAmharic ? "ይግቡ" : "LOG IN")}</span>
+        </Link>
 
         {/* Round User Avatar matching reference — Opens Profile or Login Modal */}
         <button

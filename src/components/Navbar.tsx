@@ -23,6 +23,7 @@ import {
   FlaskConical,
   Lightbulb,
   User,
+  Lock,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -142,6 +143,16 @@ export const Navbar: React.FC = () => {
             <Satellite className="w-3 h-3 text-accent-cyan" />
             <span>Space Apps 2026</span>
           </div>
+
+          {/* Visible Login / Portal Button */}
+          <Link
+            href="/login"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-accent-cyan/15 hover:bg-accent-cyan text-accent-cyan hover:text-[#040507] border border-accent-cyan/40 text-[11px] font-mono font-bold tracking-wider transition-all shadow-[0_0_12px_rgba(40,215,197,0.25)] hover:scale-105"
+            title="Open Authentication Portal"
+          >
+            <Lock className="w-3 h-3" />
+            <span>{isAuthenticated && user ? (lang === "am" ? "መለያ" : "PORTAL") : (lang === "am" ? "ይግቡ" : "LOG IN")}</span>
+          </Link>
 
           {/* Round User Profile Button */}
           <button
