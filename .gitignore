@@ -24,3 +24,6 @@ Thumbs.db
 # TypeScript declaration cache
 *.tsbuildinfo
 next-env.d.ts
+
+# Local backend state (alerts, email drafts, ingestions, contacts, and audit history)
+.local/

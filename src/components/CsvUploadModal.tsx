@@ -75,6 +75,7 @@ export const CsvUploadModal: React.FC<CsvUploadModalProps> = ({
     const ndviIdx = header.indexOf("ndvi");
 
     const validRecords: MonthlyRecord[] = [];
+    const seenDates = new Set<string>();
 
     for (let i = 1; i < lines.length; i++) {
       const line = lines[i].trim();
@@ -82,27 +83,34 @@ export const CsvUploadModal: React.FC<CsvUploadModalProps> = ({
       const cols = line.split(",").map((c) => c.trim());
 
       const dateStr = cols[dateIdx];
-      const rain = parseFloat(cols[rainIdx]);
-      const soil = parseFloat(cols[soilIdx]);
-      const ndvi = parseFloat(cols[ndviIdx]);
+      const rain = Number(cols[rainIdx]);
+      const soil = Number(cols[soilIdx]);
+      const ndvi = Number(cols[ndviIdx]);
 
       // Date validation (YYYY-MM)
-      if (!/^\d{4}-\d{2}/.test(dateStr)) {
+      const dateMatch = /^(\d{4})-(\d{2})$/.exec(dateStr);
+      if (!dateMatch || Number(dateMatch[1]) < 1 || Number(dateMatch[2]) < 1 || Number(dateMatch[2]) > 12) {
         errors.push(`Row ${i + 1}: Invalid date format '${dateStr}'. Expected YYYY-MM.`);
         break;
       }
 
-      if (isNaN(rain) || rain < 0) {
+      if (seenDates.has(dateStr)) {
+        errors.push(`Row ${i + 1}: Duplicate monthly date '${dateStr}'.`);
+        break;
+      }
+      seenDates.add(dateStr);
+
+      if (!Number.isFinite(rain) || cols[rainIdx] === "" || rain < 0) {
         errors.push(`Row ${i + 1}: Invalid rainfall value '${cols[rainIdx]}'. Must be a non-negative number.`);
         break;
       }
 
-      if (isNaN(soil) || soil < 0 || soil > 1.0) {
+      if (!Number.isFinite(soil) || cols[soilIdx] === "" || soil < 0 || soil > 1.0) {
         errors.push(`Row ${i + 1}: Invalid soil moisture value '${cols[soilIdx]}'. Expected volumetric m³/m³ between 0.0 and 1.0.`);
         break;
       }
 
-      if (isNaN(ndvi) || ndvi < -1.0 || ndvi > 1.0) {
+      if (!Number.isFinite(ndvi) || cols[ndviIdx] === "" || ndvi < -1.0 || ndvi > 1.0) {
         errors.push(`Row ${i + 1}: Invalid NDVI value '${cols[ndviIdx]}'. Expected range [-1.0, 1.0].`);
         break;
       }

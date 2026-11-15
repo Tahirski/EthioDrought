@@ -3,7 +3,6 @@
 import React, { createContext, useContext, useState, useMemo } from "react";
 import { Language } from "@/data/translations";
 import { REGIONS_DATA, MonthlyRecord } from "@/data/monthlyObservations";
-import { WoredaStation, BORENA_WOREDAS } from "@/data/ethiopiaGeo";
 import { evaluateDroughtFingerprint, FingerprintDiagnosis } from "@/lib/droughtEngine";
 import { calculateMannKendall, MannKendallResult } from "@/lib/stats";
 import { generateScientificExplanation } from "@/lib/aiExplainer";
@@ -14,8 +13,6 @@ interface AppContextType {
   toggleLang: () => void;
   selectedRegionId: string;
   setSelectedRegionId: (id: string) => void;
-  selectedWoreda: WoredaStation | null;
-  setSelectedWoreda: (woreda: WoredaStation | null) => void;
   customRecords: MonthlyRecord[] | null;
   setCustomRecords: (records: MonthlyRecord[] | null) => void;
   datasetName: string;
@@ -38,9 +35,8 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const [lang, setLang] = useState<Language>("en");
   const [selectedRegionId, setSelectedRegionId] = useState<string>("borena");
-  const [selectedWoreda, setSelectedWoreda] = useState<WoredaStation | null>(null);
   const [customRecords, setCustomRecords] = useState<MonthlyRecord[] | null>(null);
-  const [datasetName, setDatasetName] = useState<string>("Verified Satellite Archive");
+  const [datasetName, setDatasetName] = useState<string>("Demonstration Calibrated");
 
   const activeRecords = useMemo(() => {
     if (customRecords) return customRecords;
@@ -77,9 +73,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       vegZ: vegZ,
       diagnosis,
       trendResult,
-      periodLabel: "2000–2024",
+      periodLabel: customRecords ? "user-uploaded series (not independently verified)" : "synthetic demonstration series (not satellite observations)",
     });
-  }, [selectedRegionId, currentRecord, rainZ, soilZ, vegZ, diagnosis, trendResult]);
+  }, [selectedRegionId, currentRecord, rainZ, soilZ, vegZ, diagnosis, trendResult, customRecords]);
 
   const toggleLang = () => {
     setLang((prev) => (prev === "en" ? "am" : "en"));
@@ -100,8 +96,6 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         toggleLang,
         selectedRegionId,
         setSelectedRegionId,
-        selectedWoreda,
-        setSelectedWoreda,
         customRecords,
         setCustomRecords,
         datasetName,

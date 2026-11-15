@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "ETHIODROUGHT — Beyond Rainfall | NASA Space Apps Challenge 2026",
-  description: "Earth Observation Platform investigating drought and environmental stress across Ethiopia using NASA FLDAS, GPM, and MODIS satellites.",
+  description: "A drought investigation framework for Ethiopia. NASA POWER point data and a historical experimental rainfall predictor are available; zonal GPM, FLDAS, and MODIS time series are not integrated.",
   keywords: ["Ethiopia", "Borena", "Drought", "NASA Space Apps 2026", "FLDAS", "GPM IMERG", "MODIS", "Mann-Kendall", "Earth Observation"],
 };
 

@@ -1,9 +1,11 @@
+import { calculateMannKendall as calculateBackendMannKendall } from "@/lib/backend/science";
+
 /**
  * Statistical calculations for Earth System Trend Detective
  * - Standardized Monthly Anomaly (Z-score against calendar month climatology)
  * - Mann-Kendall non-parametric trend test (with tie correction)
  * - Sen's slope estimator (Theil-Sen median slope)
- * - Two-tailed p-value via high-precision normal CDF approximation
+ * - Exact permutation p-values for small samples and normal approximation for larger samples
  */
 
 export interface AnomalyResult {
@@ -13,7 +15,6 @@ export interface AnomalyResult {
   anomalyZ: number; // Z-score
   departure: number; // raw difference (observed - mean)
 }
-
 export interface MannKendallResult {
   n: number;
   S: number;
@@ -26,6 +27,8 @@ export interface MannKendallResult {
   trend: 'increasing' | 'decreasing' | 'no_trend';
   significant: boolean; // at alpha = 0.05
   significanceLevel: 'p < 0.01' | 'p < 0.05' | 'p < 0.10' | 'not_significant';
+  pValueMethod: 'exact_permutation' | 'normal_approximation' | 'insufficient';
+  limitations: string[];
 }
 
 /**
@@ -105,119 +108,38 @@ export function computeStandardizedAnomaly(
   };
 }
 
+
 /**
  * Mann-Kendall Trend Test with Sen's Slope
  * Rigorous statistical implementation conforming to PyMannKendall / SciPy
  */
 export function calculateMannKendall(
   values: number[],
-  alpha: number = 0.05
+  alpha: number = 0.05,
+  times?: number[]
 ): MannKendallResult {
-  const n = values.length;
-  if (n < 4) {
-    return {
-      n,
-      S: 0,
-      varS: 0,
-      zScore: 0,
-      pValue: 1,
-      tau: 0,
-      sensSlope: 0,
-      intercept: values[0] || 0,
-      trend: 'no_trend',
-      significant: false,
-      significanceLevel: 'not_significant'
-    };
-  }
-
-  // 1. Calculate Mann-Kendall S statistic
-  let S = 0;
-  for (let i = 0; i < n - 1; i++) {
-    for (let j = i + 1; j < n; j++) {
-      const diff = values[j] - values[i];
-      if (diff > 0) S += 1;
-      else if (diff < 0) S -= 1;
-    }
-  }
-
-  // 2. Account for tied groups in variance calculation
-  const counts = new Map<number, number>();
-  for (const v of values) {
-    counts.set(v, (counts.get(v) || 0) + 1);
-  }
-  let tieSum = 0;
-  counts.forEach((count) => {
-    if (count > 1) {
-      tieSum += count * (count - 1) * (2 * count + 5);
-    }
-  });
-
-  const varS = (n * (n - 1) * (2 * n + 5) - tieSum) / 18;
-
-  // 3. Calculate Z score with continuity correction
-  let zScore = 0;
-  if (S > 0) {
-    zScore = (S - 1) / Math.sqrt(varS);
-  } else if (S < 0) {
-    zScore = (S + 1) / Math.sqrt(varS);
-  } else {
-    zScore = 0;
-  }
-
-  // 4. Two-tailed p-value
-  const pValue = 2.0 * (1.0 - normalCDF(Math.abs(zScore)));
-
-  // 5. Kendall's Tau
-  const tau = S / ((n * (n - 1)) / 2);
-
-  // 6. Sen's Slope calculation (median of all pairwise slopes)
-  const slopes: number[] = [];
-  for (let i = 0; i < n - 1; i++) {
-    for (let j = i + 1; j < n; j++) {
-      slopes.push((values[j] - values[i]) / (j - i));
-    }
-  }
-  slopes.sort((a, b) => a - b);
-  const mid = Math.floor(slopes.length / 2);
-  const sensSlope = slopes.length % 2 !== 0
-    ? slopes[mid]
-    : (slopes[mid - 1] + slopes[mid]) / 2;
-
-  // 7. Calculate intercept (median of y_i - slope * x_i)
-  const intercepts: number[] = [];
-  for (let i = 0; i < n; i++) {
-    intercepts.push(values[i] - sensSlope * i);
-  }
-  intercepts.sort((a, b) => a - b);
-  const midInt = Math.floor(intercepts.length / 2);
-  const intercept = intercepts.length % 2 !== 0
-    ? intercepts[midInt]
-    : (intercepts[midInt - 1] + intercepts[midInt]) / 2;
-
-  // 8. Determine trend classification and significance
-  const significant = pValue < alpha;
-  let trend: 'increasing' | 'decreasing' | 'no_trend' = 'no_trend';
-  if (significant) {
-    if (S > 0) trend = 'increasing';
-    else if (S < 0) trend = 'decreasing';
-  }
-
-  let significanceLevel: 'p < 0.01' | 'p < 0.05' | 'p < 0.10' | 'not_significant' = 'not_significant';
-  if (pValue < 0.01) significanceLevel = 'p < 0.01';
-  else if (pValue < 0.05) significanceLevel = 'p < 0.05';
-  else if (pValue < 0.10) significanceLevel = 'p < 0.10';
+  const result = calculateBackendMannKendall(values, alpha, times);
+  const significanceLevel: MannKendallResult['significanceLevel'] = result.pValue < 0.01
+    ? 'p < 0.01'
+    : result.pValue < 0.05
+      ? 'p < 0.05'
+      : result.pValue < 0.10
+        ? 'p < 0.10'
+        : 'not_significant';
 
   return {
-    n,
-    S,
-    varS: Number(varS.toFixed(3)),
-    zScore: Number(zScore.toFixed(3)),
-    pValue: Number(pValue.toFixed(4)),
-    tau: Number(tau.toFixed(4)),
-    sensSlope: Number(sensSlope.toFixed(5)),
-    intercept: Number(intercept.toFixed(4)),
-    trend,
-    significant,
-    significanceLevel
+    n: result.n,
+    S: result.S,
+    varS: Number(result.variance.toFixed(3)),
+    zScore: Number(result.zScore.toFixed(3)),
+    pValue: Number(result.pValue.toFixed(6)),
+    tau: Number(result.tau.toFixed(4)),
+    sensSlope: Number((result.senSlope ?? 0).toFixed(5)),
+    intercept: Number((result.intercept ?? 0).toFixed(4)),
+    trend: result.trend,
+    significant: result.significant,
+    significanceLevel,
+    pValueMethod: result.pValueMethod,
+    limitations: result.limitations,
   };
 }

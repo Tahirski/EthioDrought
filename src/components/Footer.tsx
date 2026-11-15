@@ -27,7 +27,7 @@ export const Footer: React.FC = () => {
               </span>
             </div>
             <p className="text-text-subtle text-[11px] leading-relaxed max-w-xs">
-              Earth Observation Intelligence platform investigating drought and environmental stress in Ethiopia using NASA satellite data.
+              NASA POWER / MERRA-2 point data and static 72-zone soil-wetness / surface-temperature summaries are available. The experimental rainfall predictor is historical and national-box only; zonal monthly observation feeds are not connected.
             </p>
             <div className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-panel-dark/80 border border-accent-blue/30 w-fit">
               <Satellite className="w-3 h-3 text-accent-cyan" />
@@ -42,6 +42,7 @@ export const Footer: React.FC = () => {
               <Link href="/explore" className="text-text-subtle hover:text-accent-cyan transition-colors">Explore Ethiopia</Link>
               <Link href="/fingerprint" className="text-text-subtle hover:text-accent-cyan transition-colors">Drought Fingerprint</Link>
               <Link href="/trends" className="text-text-subtle hover:text-accent-cyan transition-colors">Trend Detective</Link>
+              <Link href="/predict" className="text-text-subtle hover:text-accent-cyan transition-colors">Experimental Predictor</Link>
               <Link href="/compare" className="text-text-subtle hover:text-accent-cyan transition-colors">Regional Comparison</Link>
             </nav>
           </div>
@@ -63,19 +64,19 @@ export const Footer: React.FC = () => {
 
           {/* Data Sources */}
           <div className="space-y-3">
-            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">NASA Data Sources</h4>
+            <h4 className="text-text-secondary font-mono font-bold uppercase tracking-widest text-[10px]">Candidate Sources · Not Integrated</h4>
             <div className="space-y-2 text-[11px] text-text-subtle">
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-sky-400" />
-                <span>FLDAS Noah LSM (0.1°)</span>
+                <span>Rainfall: GPM IMERG / CHIRPS v3</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan" />
-                <span>GPM IMERG V07 (0.1°)</span>
+                <span>Soil moisture: FLDAS / SMAP</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                <span>MODIS MOD13A2 NDVI (1km)</span>
+                <span>Vegetation: MODIS MOD13A2</span>
               </div>
             </div>
           </div>

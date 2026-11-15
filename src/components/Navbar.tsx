@@ -36,6 +36,7 @@ export const Navbar: React.FC = () => {
     { href: "/explore", label: "Explore", icon: <Map className="w-3.5 h-3.5" /> },
     { href: "/fingerprint", label: t.nav.fingerprint, icon: <Fingerprint className="w-3.5 h-3.5" /> },
     { href: "/trends", label: t.nav.trendDetective, icon: <TrendingUp className="w-3.5 h-3.5" /> },
+    { href: "/predict", label: "Predictor", icon: <TrendingUp className="w-3.5 h-3.5" /> },
     { href: "/compare", label: t.nav.comparison, icon: <GitCompare className="w-3.5 h-3.5" /> },
     { href: "/alerts", label: t.nav.alerts, icon: <Bell className="w-3.5 h-3.5" /> },
     { href: "/data", label: "Data & Transparency", icon: <Database className="w-3.5 h-3.5" /> },

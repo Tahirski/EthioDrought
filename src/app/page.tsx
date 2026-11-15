@@ -45,64 +45,15 @@ const DynamicMap = dynamic(
   }
 );
 
-// Sparkline CSS helper component using simple CSS bars
-function MiniSparkline({
-  bars,
-  colorClass,
-}: {
-  bars: number[];
-  colorClass: string;
-}) {
-  return (
-    <div className="flex items-end gap-1 h-8 px-2 py-1 bg-panel-dark/60 rounded-lg border border-panel-border/20">
-      {bars.map((height, i) => (
-        <div
-          key={i}
-          style={{ height: `${height}%` }}
-          className={`w-1 rounded-full ${colorClass} ${
-            i === bars.length - 1 ? "opacity-100 ring-1 ring-white/40" : "opacity-60"
-          }`}
-        />
-      ))}
-    </div>
-  );
-}
-
 export default function HomePage() {
   const {
     lang,
     selectedRegionId,
     setSelectedRegionId,
-    selectedWoreda,
-    setSelectedWoreda,
-    rainZ,
-    soilZ,
-    vegZ,
-    trendResult,
-    diagnosis,
   } = useApp();
 
   const isAmharic = lang === "am";
   const t = translations[lang];
-
-  // Sparkline data patterns
-  const rainSpark = [45, 60, 30, 20, 15, 35, 25, 40, 20, 15, 30, 18];
-  const soilSpark = [55, 45, 35, 25, 20, 18, 15, 12, 10, 14, 12, 10];
-  const vegSpark = [70, 65, 50, 40, 35, 30, 25, 20, 22, 18, 16, 14];
-
-  // Format Sen's Slope
-  const formattedSensSlope =
-    typeof trendResult?.sensSlope === "number"
-      ? `${trendResult.sensSlope >= 0 ? "+" : ""}${(trendResult.sensSlope * 10).toFixed(4)} / decade`
-      : "-0.0142 / decade";
-
-  // Format P-Value
-  const formattedPValue =
-    typeof trendResult?.pValue === "number"
-      ? trendResult.pValue < 0.001
-        ? "p < 0.001"
-        : `p = ${trendResult.pValue.toFixed(4)}`
-      : "p < 0.001";
 
   return (
     <div className="relative w-full overflow-hidden bg-[#040507]">
@@ -203,14 +154,13 @@ export default function HomePage() {
               <div className="mt-10 flex flex-wrap items-center gap-2.5 text-xs font-mono text-text-secondary">
                 <span className="px-3 py-1 rounded-md bg-panel-dark border border-panel-border/30 flex items-center gap-1.5">
                   <Satellite className="w-3.5 h-3.5 text-accent-cyan" />
-                  NASA GPM · FLDAS · MODIS
+                  GPM / CHIRPS: NOT INGESTED
                 </span>
                 <span className="px-3 py-1 rounded-md bg-panel-dark border border-panel-border/30">
-                  2000–2024 Satellite Baseline
+                  FLDAS / SMAP: NOT INGESTED
                 </span>
                 <span className="px-3 py-1 rounded-md bg-panel-dark border border-panel-border/30 text-accent-cyan flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-cyan animate-ping" />
-                  0.1° Climatological Grid
+                  MODIS: NOT INGESTED
                 </span>
               </div>
             </div>
@@ -236,7 +186,7 @@ export default function HomePage() {
             The Three Pillars of Environmental Drought
           </h2>
           <p className="mt-3 text-text-secondary text-sm sm:text-base leading-relaxed">
-            Drought cannot be diagnosed by a single variable alone. ETHIODROUGHT tracks atmospheric, root-zone hydrological, and canopy biophysical indicators simultaneously.
+            Drought should not be diagnosed from rainfall alone. These are the planned evidence streams; none is currently available as verified observations in this app.
           </p>
         </div>
 
@@ -252,20 +202,19 @@ export default function HomePage() {
                   ATMOSPHERIC
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-text-primary">Rainfall Anomalies (GPM IMERG)</h3>
+              <h3 className="text-lg font-bold text-text-primary">Rainfall Anomalies</h3>
               <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-                Measures atmospheric precipitation deficits and episodic monsoon failures against the 24-year climatological baseline.
+                GPM IMERG and CHIRPS v3 are candidate rainfall sources. Compare matching seasonal periods only after product and baseline selection.
               </p>
               <div className="mt-4 p-3 rounded-xl bg-panel-dark/60 border border-panel-border/20 text-[11px] font-mono text-text-subtle">
-                <strong>What it measures:</strong> Rate, volume, and accumulation of liquid precipitation reaching ground level.
+                <strong>Current integration:</strong> Not ingested. No anomaly or observation date is available.
               </div>
             </div>
             <div className="mt-6 pt-3 border-t border-panel-border/20 flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono text-text-secondary block">LATEST ANOMALY</span>
-                <span className="text-xl font-mono font-bold text-accent-cyan">{rainZ > 0 ? "+" : ""}{rainZ.toFixed(2)} σ</span>
+                <span className="text-[10px] font-mono text-text-secondary block">ASSESSMENT</span>
+                <span className="text-sm font-mono font-bold text-amber-200">INSUFFICIENT DATA</span>
               </div>
-              <MiniSparkline bars={rainSpark} colorClass="bg-accent-cyan" />
             </div>
           </div>
 
@@ -280,20 +229,19 @@ export default function HomePage() {
                   HYDROLOGICAL
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-text-primary">Root-Zone Soil Moisture (FLDAS)</h3>
+              <h3 className="text-lg font-bold text-text-primary">Soil Moisture</h3>
               <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-                Tracks subterranean water content in the critical 0–100cm depth layer, revealing aquifer depletion and moisture starvation.
+                FLDAS and SMAP are candidate sources with different measurement/model characteristics. They must not be combined without documented harmonization.
               </p>
               <div className="mt-4 p-3 rounded-xl bg-panel-dark/60 border border-panel-border/20 text-[11px] font-mono text-text-subtle">
-                <strong>What it measures:</strong> Volumetric soil water storage ($m^3/m^3$) supporting perennial grasses and deep acacia roots.
+                <strong>Current integration:</strong> Not ingested. Variable, depth, and observation period are unselected.
               </div>
             </div>
             <div className="mt-6 pt-3 border-t border-panel-border/20 flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono text-text-secondary block">LATEST ANOMALY</span>
-                <span className="text-xl font-mono font-bold text-sky-400">{soilZ > 0 ? "+" : ""}{soilZ.toFixed(2)} σ</span>
+                <span className="text-[10px] font-mono text-text-secondary block">ASSESSMENT</span>
+                <span className="text-sm font-mono font-bold text-amber-200">INSUFFICIENT DATA</span>
               </div>
-              <MiniSparkline bars={soilSpark} colorClass="bg-sky-400" />
             </div>
           </div>
 
@@ -308,20 +256,19 @@ export default function HomePage() {
                   BIOPHYSICAL
                 </span>
               </div>
-              <h3 className="text-lg font-bold text-text-primary">Vegetation Health (MODIS NDVI)</h3>
+              <h3 className="text-lg font-bold text-text-primary">Vegetation Condition</h3>
               <p className="text-xs text-text-secondary mt-2 leading-relaxed">
-                Evaluates canopy photosynthetic vigour, biomass loss, and pasture degradation across rainfed croplands and grazing basins.
+                MODIS MOD13A2 is a candidate NDVI source. Quality flags, scale factor, and seasonal baseline must be applied before interpretation.
               </p>
               <div className="mt-4 p-3 rounded-xl bg-panel-dark/60 border border-panel-border/20 text-[11px] font-mono text-text-subtle">
-                <strong>What it measures:</strong> Normalized Difference Vegetation Index reflecting live green foliage and canopy health.
+                <strong>Current integration:</strong> Not ingested. No quality-screened vegetation values are available.
               </div>
             </div>
             <div className="mt-6 pt-3 border-t border-panel-border/20 flex items-center justify-between">
               <div>
-                <span className="text-[10px] font-mono text-text-secondary block">LATEST ANOMALY</span>
-                <span className="text-xl font-mono font-bold text-emerald-400">{vegZ > 0 ? "+" : ""}{vegZ.toFixed(2)} σ</span>
+                <span className="text-[10px] font-mono text-text-secondary block">ASSESSMENT</span>
+                <span className="text-sm font-mono font-bold text-amber-200">INSUFFICIENT DATA</span>
               </div>
-              <MiniSparkline bars={vegSpark} colorClass="bg-emerald-400" />
             </div>
           </div>
         </div>
@@ -404,132 +351,16 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ========================================================
-          PAGE 2: THE PROBLEM — WHY ETHIOPIA? (NUMERICAL EVIDENCE)
-          ======================================================== */}
       <section id="problem" className="py-20 lg:py-24 max-w-[1720px] mx-auto px-4 lg:px-8 border-t border-panel-border/20 z-10 relative">
-        <div className="max-w-4xl mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-[11px] font-mono text-red-400 uppercase mb-3">
-            <ShieldAlert className="w-3.5 h-3.5" />
-            <span>GROUND TRUTH & HUMANITARIAN EVIDENCE</span>
+        <div className="max-w-4xl p-6 rounded-3xl nasa-panel border border-amber-500/35">
+          <div className="flex items-center gap-2 text-amber-200 font-mono text-xs uppercase tracking-wider">
+            <ShieldAlert className="w-4 h-4" />
+            Regional context requires cited sources
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text-primary tracking-tight">
-            The Problem — Why Ethiopia?
-          </h2>
-          <p className="mt-3 text-text-secondary text-sm sm:text-base leading-relaxed">
-            In pastoral rangelands and rainfed highlands, drought is not an abstract metric. It is an existential threat to millions of pastoralists and smallholders whose livelihoods depend on soil water storage and seasonal grass regeneration.
+          <h2 className="mt-3 text-3xl font-bold text-text-primary">Why drought evidence needs context</h2>
+          <p className="mt-3 text-sm text-text-secondary leading-relaxed">
+            Rainfall, soil moisture, and vegetation describe different parts of the drought process. Humanitarian impact, population, and current-condition figures are not shown here until they can be linked to verifiable sources and dates. The map currently has no verified environmental observations.
           </p>
-        </div>
-
-        {/* Historical Impact 2020-2023 4-Stat Grid */}
-        <div className="mb-14">
-          <div className="flex items-center gap-2 mb-5">
-            <Calendar className="w-4 h-4 text-accent-cyan" />
-            <h3 className="text-base sm:text-lg font-bold text-text-primary font-mono uppercase tracking-wider">
-              Historical Drought Impact (2020–2023)
-            </h3>
-            <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-panel-dark text-text-secondary border border-panel-border/30">
-              5 Failed Seasons
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="nasa-panel p-6 rounded-3xl border border-red-500/35 relative flex flex-col justify-between shadow-xl">
-              <div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500/10 text-red-300 border border-red-500/30 uppercase">
-                  REGIONAL TOTAL
-                </span>
-                <div className="text-3xl sm:text-4xl font-mono font-bold text-red-400 mt-2">&gt; 6.8 Million</div>
-                <div className="text-xs font-mono font-semibold text-text-primary uppercase mt-1">
-                  Livestock Deaths in Affected Regions
-                </div>
-              </div>
-              <p className="text-xs text-text-secondary mt-3 pt-3 border-t border-panel-border/20">
-                Massive livestock mortality across Somali, Oromia, and SNNP pastoral zones during prolonged multi-year rainfall deficits.
-              </p>
-            </div>
-
-            <div className="nasa-panel p-6 rounded-3xl border border-red-500/35 relative flex flex-col justify-between shadow-xl">
-              <div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-red-500/10 text-red-300 border border-red-500/30 uppercase">
-                  BORENA ZONE
-                </span>
-                <div className="text-3xl sm:text-4xl font-mono font-bold text-red-400 mt-2">&gt; 3.3 Million</div>
-                <div className="text-xs font-mono font-semibold text-text-primary uppercase mt-1">
-                  Livestock Deaths in Borena Alone
-                </div>
-              </div>
-              <p className="text-xs text-text-secondary mt-3 pt-3 border-t border-panel-border/20">
-                Over 3.3 million livestock perished in Borena Zone, devastating ancestral pastoral cattle assets and traditional pastoral economies.
-              </p>
-            </div>
-
-            <div className="nasa-panel p-6 rounded-3xl border border-amber-500/35 relative flex flex-col justify-between shadow-xl">
-              <div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 uppercase">
-                  POPULATION
-                </span>
-                <div className="text-3xl sm:text-4xl font-mono font-bold text-amber-400 mt-2">~ 1.7 Million</div>
-                <div className="text-xs font-mono font-semibold text-text-primary uppercase mt-1">
-                  Borena Population (2023 Assessment)
-                </div>
-              </div>
-              <p className="text-xs text-text-secondary mt-3 pt-3 border-t border-panel-border/20">
-                Total population residing across Borena Zone dependent on fragile rangeland ecology and deep traditional tula wells.
-              </p>
-            </div>
-
-            <div className="nasa-panel p-6 rounded-3xl border border-amber-500/35 relative flex flex-col justify-between shadow-xl">
-              <div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-amber-500/10 text-amber-300 border border-amber-500/30 uppercase">
-                  FOOD ASSISTANCE
-                </span>
-                <div className="text-3xl sm:text-4xl font-mono font-bold text-amber-400 mt-2">&gt; 50%</div>
-                <div className="text-xs font-mono font-semibold text-text-primary uppercase mt-1">
-                  Population Requiring Emergency Aid
-                </div>
-              </div>
-              <p className="text-xs text-text-secondary mt-3 pt-3 border-t border-panel-border/20">
-                Over half of Borena&apos;s population required emergency humanitarian food rations and water trucking following rangeland collapse.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Recent Conditions 2026-2027 Cards */}
-        <div>
-          <div className="flex items-center gap-2 mb-5">
-            <Radio className="w-4 h-4 text-accent-cyan" />
-            <h3 className="text-base sm:text-lg font-bold text-text-primary font-mono uppercase tracking-wider">
-              Recent Environmental Conditions (2026–2027)
-            </h3>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="nasa-panel-blue p-6 rounded-3xl border border-accent-secondary/40 shadow-xl">
-              <div className="text-xs font-mono text-accent-cyan uppercase mb-1">
-                TIGRAY · EASTERN AMHARA · EASTERN OROMIA
-              </div>
-              <h4 className="text-lg font-bold text-text-primary">
-                2026 Kiremt Monsoon Deficits Impact Crop Germination
-              </h4>
-              <p className="mt-3 text-text-secondary text-xs sm:text-sm leading-relaxed">
-                The 2026 Kiremt season experienced significant rainfall deficits across parts of Tigray, eastern Amhara, and eastern Oromia. These deficits directly suppressed crop germination and vegetative development across agricultural escarpments.
-              </p>
-            </div>
-
-            <div className="nasa-panel-blue p-6 rounded-3xl border border-accent-secondary/40 shadow-xl">
-              <div className="text-xs font-mono text-accent-cyan uppercase mb-1">
-                NORTHERN AFAR LOWLANDS
-              </div>
-              <h4 className="text-lg font-bold text-text-primary">
-                October 2026 – March 2027 Dry Period Pasture Depletion
-              </h4>
-              <p className="mt-3 text-text-secondary text-xs sm:text-sm leading-relaxed">
-                Northern Afar entered the October 2026–March 2027 dry period with severely below-average livestock body conditions, acute pasture exhaustion, and critically depleted surface water collection points.
-              </p>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -548,13 +379,13 @@ export default function HomePage() {
           <div className="lg:col-span-6">
             <div className="inline-flex items-center gap-2 text-[11px] font-mono tracking-widest text-accent-cyan uppercase mb-2">
               <Search className="w-3.5 h-3.5" />
-              <span>STATISTICAL CLIMATE MECHANICS (2000–2024)</span>
+              <span>STATISTICAL METHODS — RESULTS UNAVAILABLE</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
               Measure What Is Changing. Quantify How Fast.
             </h2>
             <p className="mt-4 text-text-secondary text-sm sm:text-base leading-relaxed">
-              The Mann-Kendall rank test identifies monotonic environmental trends without assuming normal distribution. Sen&apos;s slope calculates the median rate of change, impervious to seasonal anomalies and outliers.
+              Mann–Kendall and Sen&apos;s slope can summarize a validated time series. No verified observation series is currently available, so this page does not report a trend.
             </p>
             <div className="mt-6">
               <Link
@@ -572,20 +403,20 @@ export default function HomePage() {
             <div className="nasa-panel p-5 rounded-3xl border border-accent-secondary/35">
               <div className="text-[10px] font-mono text-accent-light uppercase">Sen&apos;s Slope Estimator</div>
               <div className="text-2xl sm:text-3xl font-mono font-bold text-text-primary mt-1">
-                {formattedSensSlope}
+                Not computed
               </div>
               <p className="text-xs text-text-secondary mt-2">
-                Median rate of change across 24 years (2000–2024) of verified satellite records.
+                Requires an observation series with known provenance and coverage.
               </p>
             </div>
 
             <div className="nasa-panel p-5 rounded-3xl border border-accent-secondary/35">
               <div className="text-[10px] font-mono text-accent-light uppercase">Statistical Significance</div>
               <div className="text-2xl sm:text-3xl font-mono font-bold text-accent-cyan mt-1">
-                {formattedPValue}
+                Not computed
               </div>
               <p className="text-xs text-text-secondary mt-2">
-                Two-tailed Mann-Kendall significance at 95% confidence (α = 0.05).
+                No statistical significance result is available without validated inputs.
               </p>
             </div>
 
@@ -593,11 +424,11 @@ export default function HomePage() {
               <div>
                 <div className="text-[10px] font-mono text-accent-light uppercase">Kendall&apos;s Tau (τ)</div>
                 <div className="text-base font-bold text-text-primary mt-0.5">
-                  Directional Monotonic Drying Trajectory
+                  Trend direction unavailable
                 </div>
               </div>
               <span className="font-mono text-sm px-3 py-1 rounded-xl bg-panel-dark text-accent-cyan border border-panel-border/30">
-                τ = -0.324
+                τ = —
               </span>
             </div>
           </div>
@@ -619,13 +450,13 @@ export default function HomePage() {
           <div>
             <div className="inline-flex items-center gap-2 text-[11px] font-mono tracking-widest text-accent-light uppercase mb-2">
               <MapPin className="w-3.5 h-3.5 text-accent-cyan" />
-              <span>GEOSPATIAL ORBITAL MONITORING</span>
+              <span>DROUGHT INVESTIGATION MAP</span>
             </div>
             <h2 className="text-3xl sm:text-4xl font-bold text-text-primary">
               Observe Ethiopia from Orbit
             </h2>
             <p className="mt-2 text-text-secondary max-w-2xl text-xs sm:text-sm">
-              Continuous multispectral monitoring across 8 woreda stations in Borena pastoral rangelands and broader Ethiopian ecological zones.
+              Select a region to investigate. Borena’s 2020 administrative boundary is loaded; no verified environmental observations are available.
             </p>
           </div>
           <Link
@@ -640,14 +471,8 @@ export default function HomePage() {
         {/* Leaflet Map Preview */}
         <div className="h-[520px] rounded-3xl overflow-hidden border border-panel-border/40 shadow-2xl relative bg-panel-dark">
           <DynamicMap
-            selectedLayer="fingerprint"
             selectedRegionId={selectedRegionId}
             onSelectRegion={setSelectedRegionId}
-            selectedWoreda={selectedWoreda}
-            onSelectWoreda={setSelectedWoreda}
-            currentRainfallZ={rainZ}
-            currentSoilZ={soilZ}
-            currentVegZ={vegZ}
           />
         </div>
       </section>
@@ -801,7 +626,7 @@ export default function HomePage() {
               <Satellite className="w-6 h-6 text-accent-cyan mb-4 group-hover:scale-110 transition-transform" />
               <h4 className="text-base font-bold text-text-primary">Geospatial Explorer</h4>
               <p className="text-xs text-text-secondary mt-2">
-                Full-screen Leaflet GIS console with multi-layer overlays and 8 Borena stations.
+                Region selection and evidence-layer controls, with explicit insufficient-data status. No station pins or observation overlays are shown.
               </p>
             </div>
             <div className="mt-6 text-xs font-mono text-accent-cyan flex items-center gap-1">

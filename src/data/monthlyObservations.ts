@@ -1,15 +1,7 @@
 /**
- * Curated 24-year Monthly Earth Observation Archives (2000–2024)
- * Datasets:
- * - Rainfall: NASA GPM IMERG Final Run / FLDAS (mm/month)
- * - Soil Moisture: NASA FLDAS Noah Land Surface Model 0-100cm (m³/m³)
- * - Vegetation Health: NASA MODIS MOD13A2 / MYD13A2 NDVI (16-day composite monthly mean)
- *
- * Captures historical Horn of Africa climate events:
- * - 2010-2011 Horn of Africa drought
- * - 2015-2016 El Niño meteorological drought
- * - 2020-2023 Unprecedented 5-consecutive rainy season failure in Borena
- * - 2023-2024 Positive IOD extreme rainfall fluctuations
+ * Synthetic demonstration series for the frontend, 2000–2024.
+ * These generated values are not remotely sensed observations and must not be used
+ * for environmental interpretation, operational alerts, or scientific conclusions.
  */
 
 export interface MonthlyRecord {
@@ -33,7 +25,7 @@ export interface RegionTimeSeries {
     soilSource: string;
     ndviSource: string;
     baselinePeriod: string;
-    status: 'Verified Satellite Archive' | 'Demonstration Calibrated';
+    status: 'Demonstration Calibrated';
   };
   records: MonthlyRecord[];
 }
@@ -149,7 +141,7 @@ function generateBorenaRecords(): MonthlyRecord[] {
         rainfallZ: Number(rZ.toFixed(2)),
         soilMoistureZ: Number(sZ.toFixed(2)),
         ndviZ: Number(vZ.toFixed(2)),
-        isDemonstration: false
+        isDemonstration: true
       });
     }
   }
@@ -185,7 +177,7 @@ function generateSomaliRecords(): MonthlyRecord[] {
         rainfallZ: Number(((r - baseRain) / 18).toFixed(2)),
         soilMoistureZ: Number(((s - baseSoil) / 0.025).toFixed(2)),
         ndviZ: Number(((v - baseNdvi) / 0.035).toFixed(2)),
-        isDemonstration: false
+        isDemonstration: true
       });
     }
   }
@@ -220,7 +212,7 @@ function generateTigrayRecords(): MonthlyRecord[] {
         rainfallZ: Number(((r - baseRain) / 32).toFixed(2)),
         soilMoistureZ: Number(((s - baseSoil) / 0.038).toFixed(2)),
         ndviZ: Number(((v - baseNdvi) / 0.055).toFixed(2)),
-        isDemonstration: false
+        isDemonstration: true
       });
     }
   }
@@ -232,11 +224,11 @@ export const REGIONS_DATA: Record<string, RegionTimeSeries> = {
     regionId: "borena",
     regionName: "Borena Zone (Oromia)",
     provenance: {
-      rainfallSource: "NASA GPM IMERG Final Run V06B (0.1° Lat/Lon)",
-      soilSource: "NASA FLDAS Noah Land Surface Model 0-100cm (0.1°)",
-      ndviSource: "NASA MODIS MOD13A2 / MYD13A2 Vegetation Indices (1km CMG)",
+      rainfallSource: "Synthetic demonstration values (not NASA observations)",
+      soilSource: "Synthetic demonstration values (not NASA observations)",
+      ndviSource: "Synthetic demonstration values (not NASA observations)",
       baselinePeriod: "2000-2020 Climatology Baseline",
-      status: "Verified Satellite Archive"
+      status: "Demonstration Calibrated"
     },
     records: generateBorenaRecords()
   },
@@ -244,11 +236,11 @@ export const REGIONS_DATA: Record<string, RegionTimeSeries> = {
     regionId: "somali",
     regionName: "Somali Region (Fafan Zone)",
     provenance: {
-      rainfallSource: "NASA GPM IMERG Final Run (0.1°)",
-      soilSource: "NASA FLDAS Noah Land Surface Model (0.1°)",
-      ndviSource: "NASA MODIS MOD13A2 NDVI",
+      rainfallSource: "Synthetic demonstration values (not NASA observations)",
+      soilSource: "Synthetic demonstration values (not NASA observations)",
+      ndviSource: "Synthetic demonstration values (not NASA observations)",
       baselinePeriod: "2000-2020 Climatology Baseline",
-      status: "Verified Satellite Archive"
+      status: "Demonstration Calibrated"
     },
     records: generateSomaliRecords()
   },
@@ -256,11 +248,11 @@ export const REGIONS_DATA: Record<string, RegionTimeSeries> = {
     regionId: "tigray",
     regionName: "Tigray Region (Central Highlands)",
     provenance: {
-      rainfallSource: "NASA GPM IMERG Final Run (0.1°)",
-      soilSource: "NASA FLDAS Noah Land Surface Model (0.1°)",
-      ndviSource: "NASA MODIS MOD13A2 NDVI",
+      rainfallSource: "Synthetic demonstration values (not NASA observations)",
+      soilSource: "Synthetic demonstration values (not NASA observations)",
+      ndviSource: "Synthetic demonstration values (not NASA observations)",
       baselinePeriod: "2000-2020 Climatology Baseline",
-      status: "Verified Satellite Archive"
+      status: "Demonstration Calibrated"
     },
     records: generateTigrayRecords()
   }

@@ -2,26 +2,32 @@
 ### NASA Space Apps Challenge 2026 • "Be An Earth System Trend Detective!"
 
 > **Main Tagline:** "Beyond Rainfall. Understanding the Signals of Drought."  
-> **Secondary Description:** "Turning NASA Earth observations into understandable environmental intelligence for Ethiopia."
+> **Secondary Description:** "A transparent framework for investigating drought evidence in Ethiopia."
 
 ---
 
 ## 🛰️ 1. Project Overview
 
-**ETHIODROUGHT** is a competition web application designed to investigate agricultural and meteorological drought across Ethiopia, with an in-depth geographical case study on **Borena Zone, Oromia Region**.
+**ETHIODROUGHT** is a competition web application designed to investigate drought across Ethiopia, with an in-depth case study on **Borena Zone, Oromia Region**.
 
-Traditional drought monitoring often relies solely on rainfall gauges, failing to capture the complex subsurface and biological cascades that trigger famines. ETHIODROUGHT combines three independent NASA Earth observation indicators:
+> **Data integrity notice:** A live NASA POWER / MERRA-2 point series is available for Borena, and supplied gridded files support static 72-zone spatial summaries. The built-in 2000–2024 analysis series remain synthetic UI demonstrations. The Predictor contains an experimental national-box rainfall-only GPR using a user-supplied Giovanni export; its units are unverified and its 2025-06 forecast is historical. None of these should be used for operational drought decisions or alerts.
 
-1. **Precipitation Anomalies:** NASA GPM IMERG Final Run / FLDAS (0.1° resolution)
-2. **Root-Zone Soil Moisture Anomalies:** NASA FLDAS Noah Land Surface Model 0–100cm (0.1° resolution)
-3. **Vegetation Health Anomalies:** NASA MODIS MOD13A2 / MYD13A2 NDVI (1km / 0.05° resolution)
+The planned scientific analysis combines three distinct indicators when verified observations become available:
 
-Its central innovation is the **Drought Fingerprint Engine**, which evaluates the agreement, divergence, and temporal lag between these three signals to diagnose:
+1. **Precipitation Anomalies:** NASA GPM IMERG (product and version not yet configured)
+2. **Soil Moisture Anomalies:** NASA FLDAS or a separately harmonized alternative
+3. **Vegetation Anomalies:** NASA MODIS MOD13A2 with quality screening
+
+CHIRPS v3 is listed as a candidate rainfall comparison, not as an integrated feed. Giovanni and KNMI are exploration tools; AppEEARS is an extraction service for supported products; GES DISC hydrology time-series resources require product-specific evaluation; NOAA CDO station availability in Borena is unverified. See the source registry in the app or `GET /api/v1/references`.
+
+The **Drought Fingerprint Engine** is a prototype for evaluating agreement and divergence between these signals. It does not infer groundwater depletion, crop losses, or livestock impacts from vegetation data alone.
 - **Meteorological Drought Onset:** Atmospheric deficit buffered by antecedent ground moisture.
 - **Root-Zone Soil Moisture Desiccation:** Hidden subsurface drying prior to canopy collapse.
 - **Canopy Agricultural Stress:** Pasture exhaustion and browning.
 - **Compound Agricultural Drought:** Simultaneous crisis across rainfall, soil, and vegetation.
 - **Ephemeral Green-up Mirage / False Recovery:** Surface weed greening masking deep aquifer depletion.
+
+The experimental Predictor is available at `/predict`. It forecasts one monthly step of the national bounding-box rainfall series only; it is not a zone forecast and does not predict soil moisture. See `docs/backend.md` for data provenance, validation metrics, and limitations.
 
 ---
 
@@ -34,16 +40,15 @@ Adapted directly from high-end satellite monitoring command center concepts (NAS
 - **Accents:** Cyan `#28D7C5`, Light Blue `#A8BFDC`, Accent Blue `#41619F`, Satellite Greens
 - **Visual Composition:**
   - **Top Navigation:** Understated bar with glowing pill tab selector and English/Amharic (አማርኛ) toggle.
-  - **Central Hero Geospatial View (~60% width):** Interactive Leaflet map of Ethiopia with Borena Zone highlight, woreda stations (Yabello, Moyale, Dillo, Teltele, Dire/Mega, Miyo, Wachile, Dubluk), rotating radar sensor sweep, floating location badge, and floating command query bar.
-  - **Right-Side Insights Panel (~40% width):** Stacked real-time analytical cards (Drought Fingerprint, Environmental Trend, Regional Target, Scientific Explanation).
-  - **Bottom Analytical Panels:** 4 compact cards (Environmental History 24-month chart, Drought Indicators breakdown, Regional Contrast, NASA Data Provenance).
+  - **Investigation map:** Region selection and evidence-layer controls, with no drought-colored polygons or fabricated station markers while verified observations are unavailable.
+  - **Data readiness panels:** Candidate source roles, limitations, and missing observation/retrieval metadata are explicit.
 
 ---
 
 ## 🔬 3. Scientific Methodology
 
 ### Standardized Monthly Anomaly ($Z$-Score)
-Calculated against calendar-month climatological baselines (2000–2020) to isolate true anomalies from natural seasonality:
+The backend implements calendar-month baselines (configurable; defaults to 2000–2020). These methods are not currently applied to verified satellite observations:
 $$Z_{y,m} = \frac{X_{y,m} - \mu_m}{\sigma_m}$$
 where $\mu_m$ is the multi-year monthly mean for month $m \in \{1..12\}$, and $\sigma_m$ is the monthly standard deviation.
 
@@ -61,25 +66,30 @@ $$Q_k = \frac{x_j - x_i}{j - i} \quad \implies \quad Q_{\text{Sen}} = \operatorn
 ## 🚀 4. Quick Start & Local Running
 
 ### Prerequisites
-- Node.js 18+ (tested on Node v24)
+- Node.js 20.9+ recommended (tested on Node v24)
 - npm 10+
 
-### Installation & Execution
+### Frontend and backend launch
+
+The frontend and `/api/v1` backend are served by the same Next.js application; they are not separate processes.
+
 ```bash
-# Clone or navigate to the repository
-cd ethiodrought
-
-# Install dependencies
-npm install
-
-# Start development server
+npm ci
 npm run dev
-# The application will launch at http://localhost:3000
+```
 
-# Build production bundle
+Open the frontend at [http://localhost:3000](http://localhost:3000). The API is available at `/api/v1` on the same host. For production, run:
+
+```bash
 npm run build
 npm start
 ```
+
+## Backend API
+
+The versioned API uses the existing Next.js server. It includes a scientific-method module, dataset registry, JSON report contract, sample-only SMS workflow, and an opt-in SMTP email workflow for reviewed sample notifications. It does **not** include external NASA ingestion, a database, PDF rendering, or verified environmental alerts. See [docs/backend.md](./docs/backend.md) for routes, request/response shapes, configuration, quality rules, and tests.
+
+For frontend/backend development and production launch commands, see the [launch guide](./docs/launch.md).
 
 ---
 
@@ -87,7 +97,7 @@ npm start
 
 ```
 ethiodrought/
-├── package.json               # Dependencies (Next.js 14, React 18, Leaflet, Recharts, Tailwind)
+├── package.json               # Dependencies (Next.js 15, React 18, Leaflet, Recharts, Tailwind)
 ├── tailwind.config.js         # NASA UI command center color palette & glow effects
 ├── tsconfig.json              # TypeScript configuration
 ├── next.config.mjs            # Next.js configuration
@@ -130,8 +140,8 @@ ethiodrought/
 │   ├── context/
 │   │   └── AppContext.tsx     # Centralized React context for bilingual state, records, anomalies
 │   ├── data/
-│   │   ├── ethiopiaGeo.ts     # Verified boundary GeoJSON for Ethiopia & Borena woredas
-│   │   ├── monthlyObservations.ts # 25-year monthly archives (2000-2024) for Borena, Somali, Tigray
+│   │   ├── ethiopiaGeo.ts     # Frontend display geometry; not verified for scientific API use
+│   │   ├── monthlyObservations.ts # Synthetic monthly demonstration series (2000-2024)
 │   │   └── translations.ts    # Complete English / Amharic (አማርኛ) dictionary
 │   └── lib/
 │       ├── stats.ts           # Mann-Kendall, Sen's slope, Standardized Anomaly, Normal CDF
@@ -143,7 +153,7 @@ ethiodrought/
 
 ## 📊 6. Ingesting Custom Climate Data (CSV Schema)
 
-Users can drag-and-drop their own NASA Giovanni or meteorological records using the **CSV Ingestion** button. The file must follow this schema:
+The existing **CSV Ingestion** modal performs client-side preview/validation only; it does not persist data or update backend calculations. The protected backend CSV API is separate, uses its documented schema, and quarantines unverified uploads from analysis. See the [CSV upload contract](./docs/backend.md#csv-upload-contract).
 
 ```csv
 date,rainfall_mm,soil_moisture,ndvi

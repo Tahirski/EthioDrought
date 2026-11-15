@@ -66,8 +66,8 @@ export const RegionalPriorityRanking: React.FC<RegionalPriorityRankingProps> = (
           </h3>
           <p className="text-xs sm:text-sm text-text-secondary mt-1 max-w-2xl">
             {isAmharic
-              ? "በበርካታ የሳተላይት መለኪያዎች (ዝናብ፣ አፈር፣ ዕፅዋት) ላይ የታየውን ቀጣይነት ያለው ጫና በማመዛዘን የተዘጋጀ ሳይንሳዊ የቅድሚያ ቅደም ተከተል።"
-              : "Ranking regions by multi-sensor stress convergence, anomaly persistence, and data coverage to guide in-depth environmental analysis."}
+              ? "ይህ የማሳያ ምሳሌ ዝርዝር ነው፤ ከተረጋገጡ የሳተላይት ምልከታዎች አልተቆጠረም።"
+              : "Illustrative demo ranking only — it is not calculated from verified observations and must not be interpreted as a current regional assessment."}
           </p>
         </div>
 

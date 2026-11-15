@@ -7,8 +7,8 @@ import {
 } from '@/types/alerts';
 
 /**
- * Verified Sample Alerts for ETHIODROUGHT ALERT Demonstration
- * OPERATES IN SAMPLE / DEMO MODE ONLY. No actual SMS or notifications are sent.
+ * Synthetic scenario fixtures for alert-workflow demonstrations.
+ * No measurements were retrieved or analyzed; no actual messages are sent.
  */
 export const SAMPLE_ALERTS: EnvironmentalAlert[] = [
   {
@@ -33,16 +33,16 @@ export const SAMPLE_ALERTS: EnvironmentalAlert[] = [
     triggerCondition: 'Multiple indicators showing persistent negative anomalies (< -1.5σ) over 3 consecutive periods.',
     triggerConditionAm: 'በተከታታይ ሦስት ወቅቶች የሁሉም ጠቋሚዎች ከፍተኛ ቅናሽ (< -1.5σ) ማሳየት።',
     supportingMeasurements: [
-      'GPM IMERG Precipitation Anomaly: -1.82 σ (32.4 mm observed vs 74.5 mm baseline)',
-      'FLDAS Noah Root-Zone Moisture (0–100cm): -2.14 σ (0.142 m³/m³ vs 0.225 m³/m³ baseline)',
-      'MODIS MOD13A2 NDVI Canopy Anomaly: -1.65 σ (0.375 observed vs 0.512 baseline)',
+      'Synthetic scenario input, not a measurement: GPM-style precipitation anomaly -1.82 σ',
+      'Synthetic scenario input, not a measurement: soil-moisture anomaly -2.14 σ',
+      'Synthetic scenario input, not a measurement: vegetation anomaly -1.65 σ',
     ],
-    dataQuality: 'good',
-    dataQualityNote: 'Continuous coverage across 8 Borena woreda stations with full NASA GPM/FLDAS grid cells.',
+    dataQuality: 'insufficient',
+    dataQualityNote: 'Illustrative scenario values only; no source observations, stations, or quality checks are available.',
     explanation:
-      'Potential drought-related environmental stress detected. Available satellite observations indicate persistent soil moisture and vegetation anomalies during the selected observation period. Relevant authorities are encouraged to investigate local conditions and consider appropriate response measures.',
+      'This is a fictional workflow scenario. No environmental measurements were analyzed and no drought condition has been detected for this region.',
     explanationAm:
-      'ሊከሰት የሚችል የድርቅ አካባቢ ጫና ተለይቷል። የሳተላይት ምልከታዎች በተመረጠው ወቅት ውስጥ ቀጣይነት ያለው የአፈር እርጥበትና የዕፅዋት ሽፋን መቀነስን ያሳያሉ። የሚመለከታቸው አካላት የአካባቢ ሁኔታዎችን እንዲመረምሩና ተገቢውን የመፍትሔ እርምጃ እንዲያጤኑ ይመከራል።',
+      'ይህ ለማሳያ ብቻ የተዘጋጀ ምናባዊ ሁኔታ ነው። ምንም የአካባቢ መለኪያ አልተተነተነም፣ በዚህ አካባቢም የድርቅ ሁኔታ አልተለየም።',
     recommendations: [
       'Conduct ground verification of deep tula wells and rangeland forage biomass.',
       'Review livestock watering trucking schedules across Dillo and Moyale border corridors.',
@@ -57,7 +57,7 @@ export const SAMPLE_ALERTS: EnvironmentalAlert[] = [
     regionName: 'Northern Afar Lowlands',
     regionNameAm: 'ሰሜን አፋር ቆላማ አካባቢ',
     woredaName: 'Zone 2 / Berhale / Dallol',
-    observationDate: '2024-10',
+    observationDate: '2026-10',
     observationPeriod: 'October 2026 – March 2027 Dry Period Onset',
     classification: 'subsurface_drying',
     classificationTitle: 'Pre-Dry Season Forage & Moisture Desiccation',
@@ -72,16 +72,16 @@ export const SAMPLE_ALERTS: EnvironmentalAlert[] = [
     triggerCondition: 'Soil moisture and vegetation stress entering prolonged dry season window.',
     triggerConditionAm: 'የአፈር እርጥበትና የዕፅዋት መጎዳት ወደ ረጅም ደረቅ ወቅት መግባት ጋር መጋጠሙ።',
     supportingMeasurements: [
-      'FLDAS Noah Root-Zone Soil Moisture: -1.62 σ (Critical subterranean dry point)',
-      'MODIS NDVI Vegetation Index: -1.58 σ (Early canopy browning across shrublands)',
-      'GPM Rainfall: -1.25 σ (Dry season transition deficits)',
+      'Synthetic scenario input, not a measurement: soil-moisture anomaly -1.62 σ',
+      'Synthetic scenario input, not a measurement: vegetation anomaly -1.58 σ',
+      'Synthetic scenario input, not a measurement: rainfall anomaly -1.25 σ',
     ],
-    dataQuality: 'partial',
-    dataQualityNote: 'High thermal surface temperatures; MODIS optical composite cloud filtering verified.',
+    dataQuality: 'insufficient',
+    dataQualityNote: 'Illustrative scenario values only; no source observations or MODIS quality checks are available.',
     explanation:
-      'Potential drought-related environmental stress detected. Available satellite observations indicate persistent soil moisture and vegetation anomalies during the selected observation period. Relevant authorities are encouraged to investigate local conditions and consider appropriate response measures.',
+      'This is a fictional workflow scenario. No environmental measurements were analyzed and no drought condition has been detected for this region.',
     explanationAm:
-      'ሊከሰት የሚችል የድርቅ አካባቢ ጫና ተለይቷል። የሳተላይት መረጃዎች በአፈር እርጥበትና በግጦሽ ሳር ላይ የታየ ጉልህ መቀነስን ያረጋግጣሉ።',
+      'ይህ ለማሳያ ብቻ የተዘጋጀ ምናባዊ ሁኔታ ነው። ምንም የአካባቢ መለኪያ አልተተነተነም፣ በዚህ አካባቢም የድርቅ ሁኔታ አልተለየም።',
     recommendations: [
       'Monitor pastoral herd movements toward riverine Awash basin tributaries.',
       'Assess traditional water harvesting cisterns (birkas) in remote pastoral encampments.',
@@ -95,7 +95,7 @@ export const SAMPLE_ALERTS: EnvironmentalAlert[] = [
     regionName: 'Eastern Tigray Agropastoral Zone',
     regionNameAm: 'ምስራቅ ትግራይ የግብርና-አርብቶ አደር ዞን',
     woredaName: 'Saesie Tsaedaemba / Ganta Afeshum',
-    observationDate: '2024-09',
+    observationDate: '2026-09',
     observationPeriod: '2026 Kiremt Monsoon Deficit Period',
     classification: 'false_recovery',
     classificationTitle: 'Ephemeral Rain Event with Root-Zone Deficit',
@@ -110,16 +110,16 @@ export const SAMPLE_ALERTS: EnvironmentalAlert[] = [
     triggerCondition: 'Rainfall registered positive anomaly while root-zone moisture and crop NDVI remained suppressed.',
     triggerConditionAm: 'ዝናብ ቢጨምርም የአፈር እርጥበትና የሰብል ጤና አሁንም በከፍተኛ እጥረት ውስጥ መቆየቱ።',
     supportingMeasurements: [
-      'GPM IMERG Rainfall: +0.42 σ (Brief late-season localized convective shower)',
-      'FLDAS Noah Root-Zone Moisture: -1.38 σ (Subsurface clay layer remains unreplenished)',
-      'MODIS NDVI Canopy Health: -1.45 σ (Crop vegetative development severely retarded)',
+      'Synthetic scenario input, not a measurement: rainfall anomaly +0.42 σ',
+      'Synthetic scenario input, not a measurement: soil-moisture anomaly -1.38 σ',
+      'Synthetic scenario input, not a measurement: vegetation anomaly -1.45 σ',
     ],
-    dataQuality: 'good',
-    dataQualityNote: 'Mountainous topographic terrain correction applied to FLDAS and GPM microwave grids.',
+    dataQuality: 'insufficient',
+    dataQualityNote: 'Illustrative scenario values only; no source observations or terrain corrections were applied.',
     explanation:
-      'Potential drought-related environmental stress detected. Available satellite observations indicate persistent soil moisture and vegetation anomalies during the selected observation period. Relevant authorities are encouraged to investigate local conditions and consider appropriate response measures.',
+      'This is a fictional workflow scenario. No environmental measurements were analyzed and no drought condition has been detected for this region.',
     explanationAm:
-      'ሊከሰት የሚችል የድርቅ አካባቢ ጫና ተለይቷል። የተመዘገበው ጊዜያዊ ዝናብ የስር አፈር እርጥበትን ማስተካከል አልቻለም።',
+      'ይህ ለማሳያ ብቻ የተዘጋጀ ምናባዊ ሁኔታ ነው። ምንም የአካባቢ መለኪያ አልተተነተነም፣ በዚህ አካባቢም የድርቅ ሁኔታ አልተለየም።',
     recommendations: [
       'Verify rainfed teff and barley seed germination rates with local agricultural extension offices.',
       'Caution community planners against assuming crop harvest recovery based on isolated rainfall days.',

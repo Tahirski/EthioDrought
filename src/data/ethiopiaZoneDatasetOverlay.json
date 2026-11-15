@@ -1,0 +1,511 @@
+{
+  "schemaVersion": 1,
+  "boundary": {
+    "featureCount": 72,
+    "crs": "EPSG:4326",
+    "idField": "ID_2",
+    "regionField": "NAME_1",
+    "zoneField": "NAME_2",
+    "source": "User-provided 72-zone Ethiopia GeoJSON; Borena ID_2=13679, CC_2=0412 matches the supplied attributes table."
+  },
+  "datasets": {
+    "soilMoisture": {
+      "name": "surface soil wetness",
+      "units": "1 (dimensionless)",
+      "source": "NASA MERRA-2 M2TMNXLND v5.12.4, GWETTOP",
+      "temporalCoverage": "2000-06-01 to 2025-05-31 (time average over entire period)",
+      "spatialResolution": "0.5 degree latitude x 0.625 degree longitude",
+      "spatialMethod": "Unweighted mean of valid grid-cell center points inside each zone; not area-weighted.",
+      "inputRows": 552,
+      "validRows": 552,
+      "uniqueGridCells": 552,
+      "assignedGridCells": 298,
+      "outsideGridCells": 254,
+      "zonesWithData": 56,
+      "zones": {
+        "13647": null,
+        "13648": null,
+        "13649": {
+          "mean": 0.669562,
+          "gridCellCount": 1
+        },
+        "13650": null,
+        "13651": null,
+        "13652": null,
+        "13653": null,
+        "13654": {
+          "mean": 0.244992,
+          "gridCellCount": 8
+        },
+        "13655": {
+          "mean": 0.243755,
+          "gridCellCount": 8
+        },
+        "13656": {
+          "mean": 0.36252,
+          "gridCellCount": 4
+        },
+        "13657": {
+          "mean": 0.312692,
+          "gridCellCount": 4
+        },
+        "13658": {
+          "mean": 0.277476,
+          "gridCellCount": 1
+        },
+        "13659": {
+          "mean": 0.751052,
+          "gridCellCount": 1
+        },
+        "13660": null,
+        "13661": {
+          "mean": 0.627304,
+          "gridCellCount": 3
+        },
+        "13662": {
+          "mean": 0.514887,
+          "gridCellCount": 13
+        },
+        "13663": {
+          "mean": 0.559808,
+          "gridCellCount": 5
+        },
+        "13664": {
+          "mean": 0.511194,
+          "gridCellCount": 3
+        },
+        "13665": {
+          "mean": 0.548476,
+          "gridCellCount": 1
+        },
+        "13666": {
+          "mean": 0.531779,
+          "gridCellCount": 2
+        },
+        "13667": {
+          "mean": 0.543023,
+          "gridCellCount": 7
+        },
+        "13668": {
+          "mean": 0.37739,
+          "gridCellCount": 2
+        },
+        "13669": {
+          "mean": 0.664608,
+          "gridCellCount": 5
+        },
+        "13670": {
+          "mean": 0.494758,
+          "gridCellCount": 5
+        },
+        "13671": {
+          "mean": 0.632399,
+          "gridCellCount": 1
+        },
+        "13672": {
+          "mean": 0.563766,
+          "gridCellCount": 7
+        },
+        "13673": {
+          "mean": 0.436542,
+          "gridCellCount": 1
+        },
+        "13674": {
+          "mean": 0.578032,
+          "gridCellCount": 2
+        },
+        "13675": {
+          "mean": 0.638447,
+          "gridCellCount": 4
+        },
+        "13676": null,
+        "13677": {
+          "mean": 0.633974,
+          "gridCellCount": 7
+        },
+        "13678": {
+          "mean": 0.493844,
+          "gridCellCount": 15
+        },
+        "13679": {
+          "mean": 0.460297,
+          "gridCellCount": 19
+        },
+        "13680": {
+          "mean": 0.455651,
+          "gridCellCount": 6
+        },
+        "13681": {
+          "mean": 0.508967,
+          "gridCellCount": 4
+        },
+        "13682": {
+          "mean": 0.640615,
+          "gridCellCount": 7
+        },
+        "13683": {
+          "mean": 0.761925,
+          "gridCellCount": 4
+        },
+        "13684": {
+          "mean": 0.767733,
+          "gridCellCount": 5
+        },
+        "13685": {
+          "mean": 0.602901,
+          "gridCellCount": 2
+        },
+        "13686": {
+          "mean": 0.494301,
+          "gridCellCount": 5
+        },
+        "13687": {
+          "mean": 0.654591,
+          "gridCellCount": 6
+        },
+        "13688": {
+          "mean": 0.669886,
+          "gridCellCount": 7
+        },
+        "13689": {
+          "mean": 0.30665,
+          "gridCellCount": 9
+        },
+        "13690": {
+          "mean": 0.401584,
+          "gridCellCount": 4
+        },
+        "13691": {
+          "mean": 0.332416,
+          "gridCellCount": 11
+        },
+        "13692": {
+          "mean": 0.263103,
+          "gridCellCount": 7
+        },
+        "13693": {
+          "mean": 0.296995,
+          "gridCellCount": 38
+        },
+        "13694": {
+          "mean": 0.273408,
+          "gridCellCount": 13
+        },
+        "13695": null,
+        "13696": null,
+        "13697": {
+          "mean": 0.621555,
+          "gridCellCount": 7
+        },
+        "13698": null,
+        "13699": {
+          "mean": 0.714157,
+          "gridCellCount": 1
+        },
+        "13700": null,
+        "13701": {
+          "mean": 0.569914,
+          "gridCellCount": 4
+        },
+        "13702": null,
+        "13703": {
+          "mean": 0.749142,
+          "gridCellCount": 1
+        },
+        "13704": {
+          "mean": 0.757358,
+          "gridCellCount": 1
+        },
+        "13705": {
+          "mean": 0.734379,
+          "gridCellCount": 3
+        },
+        "13706": {
+          "mean": 0.684679,
+          "gridCellCount": 1
+        },
+        "13707": {
+          "mean": 0.409038,
+          "gridCellCount": 1
+        },
+        "13708": null,
+        "13709": null,
+        "13710": {
+          "mean": 0.75935,
+          "gridCellCount": 1
+        },
+        "13711": {
+          "mean": 0.412214,
+          "gridCellCount": 6
+        },
+        "13712": {
+          "mean": 0.695405,
+          "gridCellCount": 1
+        },
+        "13713": {
+          "mean": 0.723066,
+          "gridCellCount": 1
+        },
+        "13714": {
+          "mean": 0.319141,
+          "gridCellCount": 2
+        },
+        "13715": {
+          "mean": 0.391115,
+          "gridCellCount": 2
+        },
+        "13716": null,
+        "13717": {
+          "mean": 0.482375,
+          "gridCellCount": 3
+        },
+        "13718": {
+          "mean": 0.401967,
+          "gridCellCount": 6
+        }
+      }
+    },
+    "surfaceTemperature": {
+      "name": "time-averaged daytime surface temperature",
+      "units": "°C",
+      "source": "NASA AIRS AIRX3STD v006 Surface Temperature (Daytime/Ascending)",
+      "temporalCoverage": "2002-08-31 to 2016-09-24",
+      "spatialResolution": "1.0 degree",
+      "spatialMethod": "Unweighted mean of valid grid-cell center points inside each zone; not area-weighted.",
+      "inputRows": 180,
+      "validRows": 180,
+      "uniqueGridCells": 180,
+      "assignedGridCells": 93,
+      "outsideGridCells": 87,
+      "zonesWithData": 42,
+      "zones": {
+        "13647": null,
+        "13648": null,
+        "13649": null,
+        "13650": null,
+        "13651": null,
+        "13652": null,
+        "13653": null,
+        "13654": {
+          "mean": 50.952537,
+          "gridCellCount": 3
+        },
+        "13655": {
+          "mean": 51.103294,
+          "gridCellCount": 1
+        },
+        "13656": {
+          "mean": 46.118997,
+          "gridCellCount": 2
+        },
+        "13657": {
+          "mean": 51.18551,
+          "gridCellCount": 1
+        },
+        "13658": null,
+        "13659": {
+          "mean": 35.59298,
+          "gridCellCount": 1
+        },
+        "13660": null,
+        "13661": {
+          "mean": 36.27511,
+          "gridCellCount": 1
+        },
+        "13662": {
+          "mean": 40.327316,
+          "gridCellCount": 4
+        },
+        "13663": {
+          "mean": 37.453103,
+          "gridCellCount": 2
+        },
+        "13664": null,
+        "13665": null,
+        "13666": {
+          "mean": 39.599663,
+          "gridCellCount": 1
+        },
+        "13667": {
+          "mean": 38.858131,
+          "gridCellCount": 2
+        },
+        "13668": {
+          "mean": 43.11846,
+          "gridCellCount": 1
+        },
+        "13669": {
+          "mean": 35.46917,
+          "gridCellCount": 1
+        },
+        "13670": {
+          "mean": 40.106377,
+          "gridCellCount": 1
+        },
+        "13671": null,
+        "13672": {
+          "mean": 38.800193,
+          "gridCellCount": 2
+        },
+        "13673": null,
+        "13674": null,
+        "13675": {
+          "mean": 35.750328,
+          "gridCellCount": 1
+        },
+        "13676": null,
+        "13677": {
+          "mean": 32.636986,
+          "gridCellCount": 1
+        },
+        "13678": {
+          "mean": 37.426984,
+          "gridCellCount": 6
+        },
+        "13679": {
+          "mean": 36.563389,
+          "gridCellCount": 5
+        },
+        "13680": {
+          "mean": 41.869545,
+          "gridCellCount": 2
+        },
+        "13681": {
+          "mean": 35.176887,
+          "gridCellCount": 2
+        },
+        "13682": {
+          "mean": 34.341653,
+          "gridCellCount": 2
+        },
+        "13683": {
+          "mean": 31.900628,
+          "gridCellCount": 2
+        },
+        "13684": {
+          "mean": 29.37121,
+          "gridCellCount": 1
+        },
+        "13685": null,
+        "13686": {
+          "mean": 39.580315,
+          "gridCellCount": 1
+        },
+        "13687": {
+          "mean": 34.85308,
+          "gridCellCount": 3
+        },
+        "13688": {
+          "mean": 35.162876,
+          "gridCellCount": 3
+        },
+        "13689": {
+          "mean": 43.788719,
+          "gridCellCount": 4
+        },
+        "13690": {
+          "mean": 41.82766,
+          "gridCellCount": 1
+        },
+        "13691": {
+          "mean": 40.311983,
+          "gridCellCount": 3
+        },
+        "13692": {
+          "mean": 46.891899,
+          "gridCellCount": 3
+        },
+        "13693": {
+          "mean": 44.290193,
+          "gridCellCount": 11
+        },
+        "13694": {
+          "mean": 44.66391,
+          "gridCellCount": 4
+        },
+        "13695": null,
+        "13696": null,
+        "13697": {
+          "mean": 36.724815,
+          "gridCellCount": 2
+        },
+        "13698": null,
+        "13699": null,
+        "13700": null,
+        "13701": {
+          "mean": 32.77491,
+          "gridCellCount": 2
+        },
+        "13702": null,
+        "13703": null,
+        "13704": {
+          "mean": 32.9486,
+          "gridCellCount": 1
+        },
+        "13705": null,
+        "13706": null,
+        "13707": {
+          "mean": 35.53573,
+          "gridCellCount": 1
+        },
+        "13708": null,
+        "13709": {
+          "mean": 28.44848,
+          "gridCellCount": 1
+        },
+        "13710": {
+          "mean": 30.074701,
+          "gridCellCount": 1
+        },
+        "13711": {
+          "mean": 39.985313,
+          "gridCellCount": 2
+        },
+        "13712": null,
+        "13713": null,
+        "13714": null,
+        "13715": {
+          "mean": 40.292503,
+          "gridCellCount": 1
+        },
+        "13716": null,
+        "13717": {
+          "mean": 41.002541,
+          "gridCellCount": 2
+        },
+        "13718": {
+          "mean": 40.905739,
+          "gridCellCount": 2
+        }
+      }
+    },
+    "rainfall": {
+      "name": "daily mean precipitation",
+      "source": "Daily mean precipitation (Giovanni GPM_3IMERGDE_07)",
+      "units": "Not stated in downloaded CSV; verify product metadata before calculations",
+      "spatialScope": "Area average over Ethiopia bounding box; not zone-specific",
+      "temporalCoverage": {
+        "start": "2000-06-01",
+        "end": "2025-05-31",
+        "validDateCount": 9131
+      },
+      "spatiallyMappableToZones": false,
+      "reason": "One Ethiopia bounding-box average is provided per date; the file has no gridded or zone-level rainfall values, and its units are not stated."
+    }
+  },
+  "trainingReadiness": {
+    "status": "blocked",
+    "reason": "There are no paired, temporally varying, zone-level rainfall and soil-moisture observations. The soil and temperature files contain long-period spatial averages; rainfall is a national bounding-box time series.",
+    "eligibleForForecastTraining": false,
+    "requiredData": "For each zone and month, provide source-backed rainfall accumulation (mm/month) and soil-moisture observations with units, valid dates, quality flags, and product provenance. Keep the polygon-based extraction method and source version with the export."
+  },
+  "limitations": [
+    "Zone summaries are approximate, unweighted means of grid-cell center values that fall inside each polygon; they are not area-weighted zonal statistics.",
+    "Grid-cell centers outside all zone polygons are excluded; zones without a center point have no summary and are shown as unavailable.",
+    "Soil wetness and surface temperature are long-term time averages, not month-by-month observations.",
+    "Surface soil wetness (GWETTOP, unitless) is not volumetric soil moisture and is not interchangeable with FLDAS 0–10 cm m³/m³.",
+    "Daytime surface temperature is not near-surface air temperature.",
+    "The combined reference CSV is excluded because it repeats static spatial averages against daily rainfall dates.",
+    "No forecast model is trained from these spatial summaries."
+  ]
+}

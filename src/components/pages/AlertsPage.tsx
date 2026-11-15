@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { translations, Language } from "@/data/translations";
 import { SAMPLE_ALERTS, SAMPLE_AUTHORITY_CONTACTS } from "@/data/alertsData";
 import { EnvironmentalAlert, AuthorityContact } from "@/types/alerts";
@@ -39,16 +39,35 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
   const selectedAlert = SAMPLE_ALERTS.find((a) => a.id === selectedAlertId) || SAMPLE_ALERTS[0];
 
   // Editable SMS message state
-  const defaultSmsText = `ETHIODROUGHT SAMPLE ALERT: Potential drought-related environmental stress detected in ${selectedAlert.regionName}. Available satellite observations indicate persistent soil moisture and vegetation anomalies during the selected observation period (${selectedAlert.observationPeriod}). Relevant authorities are encouraged to investigate local conditions and consider appropriate response measures. This is an environmental monitoring alert, not an official disaster declaration. Report: ${selectedAlert.referenceNumber}.`;
+  const defaultSmsText = `ETHIODROUGHT SAMPLE ONLY: Fictional workflow scenario for ${selectedAlert.regionName} (${selectedAlert.observationPeriod}). No environmental measurements were analyzed and no drought condition was detected. Not an operational warning. Scenario: ${selectedAlert.referenceNumber}.`;
 
   const [smsDraft, setSmsDraft] = useState<string>(defaultSmsText);
   const [copied, setCopied] = useState<boolean>(false);
   const [selectedContactCategory, setSelectedContactCategory] = useState<string>("all");
+  const [latestSourceMonth, setLatestSourceMonth] = useState<string | "loading" | "unavailable">("loading");
+
+  useEffect(() => {
+    let active = true;
+    fetch("/api/v1/observations/borena")
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Observation source unavailable.");
+        return response.json() as Promise<{ records?: Array<{ date?: string }> }>;
+      })
+      .then((payload) => {
+        if (!active) return;
+        const latest = payload.records?.[payload.records.length - 1]?.date;
+        setLatestSourceMonth(typeof latest === "string" ? latest : "unavailable");
+      })
+      .catch(() => {
+        if (active) setLatestSourceMonth("unavailable");
+      });
+    return () => { active = false; };
+  }, []);
 
   // Update draft when alert selection changes
   const handleSelectAlert = (alert: EnvironmentalAlert) => {
     setSelectedAlertId(alert.id);
-    const newText = `ETHIODROUGHT SAMPLE ALERT: Potential drought-related environmental stress detected in ${alert.regionName}. Available satellite observations indicate persistent soil moisture and vegetation anomalies during the selected observation period (${alert.observationPeriod}). Relevant authorities are encouraged to investigate local conditions and consider appropriate response measures. This is an environmental monitoring alert, not an official disaster declaration. Report: ${alert.referenceNumber}.`;
+    const newText = `ETHIODROUGHT SAMPLE ONLY: Fictional workflow scenario for ${alert.regionName} (${alert.observationPeriod}). No environmental measurements were analyzed and no drought condition was detected. Not an operational warning. Scenario: ${alert.referenceNumber}.`;
     setSmsDraft(newText);
   };
 
@@ -82,7 +101,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
                 </span>
               </div>
               <p className="text-xs text-text-secondary mt-1.5 leading-relaxed max-w-3xl">
-                ETHIODROUGHT ALERT currently operates in sample mode. Integration with an SMS provider and verified official authority contacts is planned for a future development phase. No actual SMS messages can or will be dispatched from this interface.
+                Automated environmental dispatch is blocked. NASA POWER MERRA-2 provides historical monthly data only{latestSourceMonth === "loading" ? " (checking source)" : latestSourceMonth === "unavailable" ? " (source unavailable)" : ` (latest record: ${latestSourceMonth})`}; it is not a near-real-time warning feed. GPM, FLDAS, MODIS NDVI, and verified authority contacts are not connected. Email remains approval-gated and SMS is simulation-only; no operational warning is sent.
               </p>
             </div>
           </div>
@@ -108,7 +127,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
               ETHIODROUGHT ALERT
             </h1>
             <p className="text-xs text-text-secondary mt-1 max-w-3xl leading-relaxed">
-              Demonstration interface previewing future communication pathways between NASA-powered environmental monitoring and relevant Ethiopian administrative and pastoral disaster response authorities.
+              Workflow prototype only. The examples below use fictional inputs and are not linked to NASA observations, current conditions, or verified authority contacts.
             </p>
           </div>
 
@@ -123,7 +142,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
         {/* Left Column: Sample Alert List (5 cols) */}
         <div className="lg:col-span-5 space-y-3">
           <div className="flex items-center justify-between text-xs font-mono text-text-secondary px-1">
-            <span>SAMPLE ENVIRONMENTAL ALERTS</span>
+            <span>FICTIONAL SAMPLE SCENARIOS · NOT MEASUREMENTS</span>
             <span className="text-accent-cyan">Select Scenario</span>
           </div>
 
@@ -145,7 +164,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
                       {alert.referenceNumber}
                     </span>
                     <span className="text-xs font-mono text-text-subtle uppercase">
-                      {alert.observationDate}
+                      SCENARIO {alert.observationDate}
                     </span>
                   </div>
 
@@ -188,7 +207,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
             <div className="flex items-start justify-between gap-4 pb-4 border-b border-panel-border/30">
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="text-xs font-mono text-accent-cyan uppercase">ALERT EVIDENCE DOSSIER</span>
+                  <span className="text-xs font-mono text-accent-cyan uppercase">ILLUSTRATIVE SCENARIO DOSSIER</span>
                   <span className="text-text-subtle">|</span>
                   <span className="text-xs font-mono text-text-primary">{selectedAlert.referenceNumber}</span>
                 </div>
@@ -196,14 +215,14 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
                   {isAmharic ? selectedAlert.regionNameAm : selectedAlert.regionName}
                 </h3>
                 <p className="text-xs text-text-secondary mt-0.5">
-                  Observation Period: {selectedAlert.observationPeriod}
+                  Scenario Period: {selectedAlert.observationPeriod}
                 </p>
               </div>
 
               <div className="text-right">
-                <span className="text-[10px] font-mono text-text-subtle uppercase block">Data Coverage</span>
-                <span className="text-xs font-mono text-emerald-400 font-bold uppercase">
-                  {selectedAlert.dataQuality} QUALITY
+                <span className="text-[10px] font-mono text-text-subtle uppercase block">Observation quality</span>
+                <span className="text-xs font-mono text-amber-300 font-bold uppercase">
+                  INSUFFICIENT · SAMPLE
                 </span>
               </div>
             </div>
@@ -222,7 +241,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
             {/* Supporting Measurements Ledger */}
             <div className="mt-5 space-y-2">
               <span className="text-xs font-mono text-text-secondary uppercase">
-                Supporting Satellite Measurements:
+                Illustrative Scenario Inputs (Not Satellite Measurements):
               </span>
               <div className="space-y-1.5 text-xs font-mono">
                 {selectedAlert.supportingMeasurements.map((m, idx) => (
@@ -237,7 +256,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
             {/* Suggested Environmental Response Considerations */}
             <div className="mt-5">
               <span className="text-xs font-mono text-text-secondary uppercase">
-                Suggested Investigation Considerations:
+                Hypothetical Scenario Considerations:
               </span>
               <ul className="mt-2 space-y-1 text-xs text-text-secondary list-disc list-inside">
                 {selectedAlert.recommendations.map((rec, idx) => (
@@ -248,7 +267,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
           </div>
 
           <div className="mt-6 pt-3 border-t border-panel-border/20 text-[10px] font-mono text-text-subtle flex items-center justify-between">
-            <span>Quality Audit: {selectedAlert.dataQualityNote}</span>
+            <span>Scenario note: {selectedAlert.dataQualityNote}</span>
             <span className="text-amber-400 uppercase">● DEMO SIMULATION</span>
           </div>
         </div>
@@ -266,7 +285,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
               Generate & Preview Sample Authority Notification
             </h3>
             <p className="text-xs text-text-secondary mt-1 max-w-2xl">
-              Preview and edit the standardized SMS advisory draft formulated from the satellite anomaly evidence. You can copy the sample text to your clipboard.
+              Preview and edit fictional sample text. No environmental observations were analyzed; messages cannot be sent from this interface.
             </p>
           </div>
 
@@ -440,7 +459,7 @@ export const AlertsPage: React.FC<AlertsPageProps> = ({ lang }) => {
             {
               step: "01",
               title: "Anomaly Detection",
-              desc: "GPM, FLDAS, and MODIS satellites identify persistent negative departures.",
+              desc: "No automated environmental detection is active. Verified inputs would be required before any investigation workflow is considered.",
             },
             {
               step: "02",

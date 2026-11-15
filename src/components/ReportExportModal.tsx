@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { X, Download, Printer, CheckCircle, FileText, Share2 } from "lucide-react";
+import { X, Download, Printer, FileText } from "lucide-react";
 import { FingerprintDiagnosis } from "@/lib/droughtEngine";
 import { MannKendallResult } from "@/lib/stats";
 
@@ -15,6 +15,8 @@ interface ReportExportModalProps {
   vegZ: number;
   diagnosis: FingerprintDiagnosis;
   trendResult: MannKendallResult;
+  dataStatus: "synthetic_demonstration" | "user_uploaded_unverified";
+  datasetName: string;
 }
 
 export const ReportExportModal: React.FC<ReportExportModalProps> = ({
@@ -27,6 +29,8 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
   vegZ,
   diagnosis,
   trendResult,
+  dataStatus,
+  datasetName,
 }) => {
   const reportRef = useRef<HTMLDivElement>(null);
 
@@ -38,11 +42,19 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
 
   const handleDownloadJson = () => {
     const reportData = {
-      title: "ETHIODROUGHT Scientific Environmental Intelligence Report",
+      title: "ETHIODROUGHT Exploratory Environmental Report",
       project: "NASA Space Apps Challenge 2026 - Be An Earth System Trend Detective",
       timestamp: new Date().toISOString(),
       geographicTarget: regionName,
-      observationPeriod: observationDate,
+      recordDate: observationDate,
+      dataProvenance: {
+        status: dataStatus,
+        datasetName,
+        sourceObservationsVerified: false,
+        qualityFlagsVerified: false,
+        baselineValidated: false,
+      },
+      analysisStatus: "exploratory_not_operational",
       anomalies: {
         rainfallZ,
         soilMoistureZ: soilZ,
@@ -64,14 +76,13 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
         twoTailedPValue: trendResult.pValue,
         statisticalSignificance: trendResult.significant,
       },
-      satelliteProvenance: {
-        rainfall: "NASA GPM IMERG Final Run V06B (0.1°)",
-        soilMoisture: "NASA FLDAS Noah Land Surface Model 0-100cm (0.1°)",
-        vegetationHealth: "NASA MODIS MOD13A2 / MYD13A2 NDVI (1km)",
-      },
       limitations: [
-        "Satellite observations measure canopy greenness and microwave dielectric properties, not ground livestock counts.",
-        "NDVI lag of 30-60 days behind rainfall deficits must be considered when interpreting drought propagation.",
+        "No verified NASA or partner observations are configured in this application.",
+        "No source quality flags, spatial coverage, or validated seasonal baseline are available.",
+        "Treat all computed anomalies, diagnoses, and trends as exploratory; they are not operational drought classifications.",
+        ...(dataStatus === "user_uploaded_unverified"
+          ? ["Uploaded values have not been independently verified for source, units, location, or scientific suitability."]
+          : ["The input values are synthetic demonstration data, not environmental observations."]),
       ],
     };
 
@@ -93,7 +104,7 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
           <div className="flex items-center gap-2">
             <FileText className="w-5 h-5 text-accent-cyan" />
             <h2 className="text-base font-bold text-text-primary tracking-wide">
-              Official Environmental Intelligence Report
+              Exploratory Environmental Report
             </h2>
           </div>
           <button
@@ -112,7 +123,7 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
                 ETHIODROUGHT — BEYOND RAINFALL
               </span>
               <h1 className="text-lg font-bold text-text-primary mt-0.5">
-                Regional Environmental & Drought Intelligence Report
+                Exploratory Environmental & Drought Analysis
               </h1>
               <span className="text-[10px] text-text-subtle">
                 NASA Space Apps Challenge 2026 • Earth System Trend Detective
@@ -120,8 +131,14 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
             </div>
             <div className="text-right text-[10px] font-mono text-text-subtle">
               <div>Date Generated: {new Date().toLocaleDateString()}</div>
-              <div className="text-emerald-400 font-bold">VERIFIED ARCHIVE</div>
+              <div className="text-amber-300 font-bold">NOT OPERATIONALLY VALIDATED</div>
             </div>
+          </div>
+
+          <div className="p-3 rounded-xl bg-amber-950/30 border border-amber-500/40 text-[11px] text-amber-100 leading-relaxed">
+            {dataStatus === "synthetic_demonstration"
+              ? "Demonstration values only — not satellite observations or current environmental conditions."
+              : "User-uploaded values — source, units, location, quality, and scientific suitability have not been independently verified."}
           </div>
 
           {/* Section 1: Target Metadata */}
@@ -131,35 +148,35 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
               <span className="font-bold text-text-primary">{regionName}</span>
             </div>
             <div className="p-2 rounded-xl bg-panel-dark border border-panel-border/20">
-              <span className="text-text-subtle text-[9px] block">Observation Date</span>
+              <span className="text-text-subtle text-[9px] block">Record date</span>
               <span className="font-bold text-accent-cyan">{observationDate}</span>
             </div>
             <div className="p-2 rounded-xl bg-panel-dark border border-panel-border/20">
-              <span className="text-text-subtle text-[9px] block">Baseline Period</span>
-              <span className="font-bold text-text-primary">2000–2020 (μ, σ)</span>
+              <span className="text-text-subtle text-[9px] block">Dataset</span>
+              <span className="font-bold text-text-primary">{datasetName}</span>
             </div>
             <div className="p-2 rounded-xl bg-panel-dark border border-panel-border/20">
-              <span className="text-text-subtle text-[9px] block">Diagnostic Verdict</span>
-              <span className="font-bold text-red-400">{diagnosis.title}</span>
+              <span className="text-text-subtle text-[9px] block">Exploratory result</span>
+              <span className="font-bold text-amber-200">{diagnosis.title}</span>
             </div>
           </div>
 
           {/* Section 2: Standardized Anomalies */}
           <div className="space-y-1.5">
             <span className="font-bold text-[11px] text-accent-cyan uppercase tracking-wider">
-              1. Multi-Indicator Standardized Anomalies (Z = [X - μ] / σ)
+              1. Exploratory standardized values (not validated observations)
             </span>
             <div className="grid grid-cols-3 gap-2 text-center text-[11px]">
               <div className="p-2.5 rounded-xl bg-panel-dark/60 border border-panel-border/20">
-                <span className="text-text-secondary block text-[10px]">Rainfall (GPM)</span>
+                <span className="text-text-secondary block text-[10px]">Rainfall (input)</span>
                 <span className="text-sm font-bold text-red-400">{rainfallZ > 0 ? `+${rainfallZ}` : rainfallZ} σ</span>
               </div>
               <div className="p-2.5 rounded-xl bg-panel-dark/60 border border-panel-border/20">
-                <span className="text-text-secondary block text-[10px]">Soil Moisture (FLDAS)</span>
+                <span className="text-text-secondary block text-[10px]">Soil moisture (input)</span>
                 <span className="text-sm font-bold text-red-400">{soilZ > 0 ? `+${soilZ}` : soilZ} σ</span>
               </div>
               <div className="p-2.5 rounded-xl bg-panel-dark/60 border border-panel-border/20">
-                <span className="text-text-secondary block text-[10px]">Canopy NDVI (MODIS)</span>
+                <span className="text-text-secondary block text-[10px]">Vegetation (input)</span>
                 <span className="text-sm font-bold text-amber-400">{vegZ > 0 ? `+${vegZ}` : vegZ} σ</span>
               </div>
             </div>
@@ -179,7 +196,7 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
           {/* Section 4: Trend Detective Results */}
           <div className="space-y-1.5">
             <span className="font-bold text-[11px] text-accent-cyan uppercase tracking-wider">
-              3. 24-Year Trend Detective (Mann-Kendall & Sen's Slope)
+              3. Exploratory Trend Calculation (Mann-Kendall &amp; Sen&apos;s Slope)
             </span>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-[10px]">
               <div className="p-2 rounded-lg bg-panel-dark/40 border border-panel-border/20">
@@ -204,10 +221,10 @@ export const ReportExportModal: React.FC<ReportExportModalProps> = ({
           {/* Section 5: Data Provenance & Caveats */}
           <div className="border-t border-white/10 pt-2 text-[10px] text-text-subtle space-y-1">
             <div>
-              <strong>Data Provenance:</strong> NASA FLDAS Noah LSM (0.1°), NASA GPM IMERG (0.1°), NASA MODIS MOD13A2 (1km).
+              <strong>Data Provenance:</strong> {datasetName} ({dataStatus.replaceAll("_", " ")}). No verified satellite sources are attached.
             </div>
             <div>
-              <strong>Caveat:</strong> Satellite remote sensing measures surface electromagnetic reflectance and simulated soil hydrological dynamics. This report is intended for scientific research and early warning coordination.
+              <strong>Caveat:</strong> This exploratory output is not suitable for official early-warning decisions. Verify source data and baselines before interpreting results.
             </div>
           </div>
         </div>
