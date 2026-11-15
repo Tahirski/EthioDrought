@@ -14,7 +14,7 @@ import { AiInsightsSidebar } from "@/components/nasa/AiInsightsSidebar";
 import { BottomCardsRow } from "@/components/nasa/BottomCardsRow";
 import { RecoveryTracker } from "@/components/RecoveryTracker";
 import { RegionalPriorityRanking } from "@/components/RegionalPriorityRanking";
-import { ChevronDown, Layers, Droplets, Sprout, ArrowRight, Activity, ShieldAlert, Sparkles, Compass } from "lucide-react";
+import { ChevronDown, Layers, Droplets, Sprout, ArrowRight, Activity, ShieldAlert, Sparkles, Compass, FlaskConical } from "lucide-react";
 
 const EthiopiaDottedGlobe = dynamic(
   () => import("@/components/nasa/EthiopiaDottedGlobe").then((m) => m.EthiopiaDottedGlobe),
@@ -163,6 +163,13 @@ export default function HomePage() {
           >
             <span>{isAmharic ? "ኢትዮጵያን ያስሱ" : "EXPLORE ETHIOPIA"}</span>
             <Compass className="w-3.5 h-3.5" />
+          </Link>
+          <Link
+            href="/lab"
+            className="flex items-center gap-2 text-xs font-mono text-emerald-400 hover:text-white transition-all py-2.5 px-5 rounded-full bg-emerald-950/40 hover:bg-emerald-900/60 border border-emerald-500/40 backdrop-blur-md shadow-[0_0_15px_rgba(16,185,129,0.15)] group"
+          >
+            <FlaskConical className="w-3.5 h-3.5 text-emerald-400 group-hover:rotate-12 transition-transform" />
+            <span>{isAmharic ? "የምርምር ላብ" : "INVESTIGATION LAB"}</span>
           </Link>
           <button
             onClick={scrollToAnalytics}

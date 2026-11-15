@@ -27,6 +27,7 @@ export const NasaTopBar: React.FC<NasaTopBarProps> = ({
     { id: "signals", label: isAmharic ? "ምልክቶች" : "SIGNALS", href: "/fingerprint" },
     { id: "regions", label: isAmharic ? "ክልሎች" : "REGIONS", href: "/compare" },
     { id: "reports", label: isAmharic ? "ሪፖርቶች" : "REPORTS", href: "/data" },
+    { id: "lab", label: isAmharic ? "ላብ" : "LAB", href: "/lab" },
   ];
 
   return (

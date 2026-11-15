@@ -76,6 +76,11 @@ const KB: { match: string[]; reply: string }[] = [
       "🔬 ETHIODROUGHT's methodology combines:\n1. **Anomaly detection** — Z-score standardization vs. 2000–2020 climatological mean\n2. **Compound drought index** — When all 3 indicators fall below –1.5 σ simultaneously\n3. **Mann-Kendall trend analysis** — Non-parametric, autocorrelation-resistant\n4. **Spatial aggregation** — Zone-level averages from pixel-level satellite products",
   },
   {
+    match: ["lab", "investigation", "workbench", "experiment", "simulator", "synthetic", "custom data"],
+    reply:
+      "🧪 The **Drought Investigation Lab** is our hands-on interactive scientific workbench at **/lab**! Features include:\n• **Map Canvas**: click anywhere in Ethiopia, choose your radius (25–600 km)\n• **Time Scrubber**: step or play month-by-month through 15+ years\n• **Drought Fingerprint**: matrix showing which sensor departed first (Precip vs Soil vs NDVI)\n• **Lead/Lag Analysis**: cross-correlations revealing signal lags\n• **Custom Data**: drag & drop your own CSV or run synthetic demos.\n\nVisit **/lab** to start an investigation!",
+  },
+  {
     match: ["help", "what can", "commands", "options", "ask"],
     reply:
       "🤖 I can answer questions about:\n• **Drought zones** — Borena, Afar, Somali, Tigray\n• **Satellite data** — GPM rainfall, FLDAS soil moisture, MODIS NDVI\n• **Statistics** — Mann-Kendall trends, anomalies, Sen's slope\n• **Why rainfall alone isn't enough**\n\nTry: *\"Why is Borena so critical?\"* or *\"Explain the soil moisture situation\"*",
@@ -93,6 +98,7 @@ function getReply(text: string): string {
 }
 
 const QUICK_CHIPS = [
+  "What is the Investigation Lab?",
   "Why is Borena so critical?",
   "What does soil moisture mean?",
   "Which zone is worst?",

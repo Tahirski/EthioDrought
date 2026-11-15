@@ -16,6 +16,7 @@ export interface TranslationDictionary {
     data: string;
     methodology: string;
     about: string;
+    lab: string;
   };
   hero: {
     boranaZone: string;
@@ -136,6 +137,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       data: "Data & Transparency",
       methodology: "Methodology",
       about: "About ETHIODROUGHT",
+      lab: "Investigation Lab",
     },
     hero: {
       boranaZone: "BORANA ZONE",
@@ -254,6 +256,7 @@ export const translations: Record<Language, TranslationDictionary> = {
       data: "መረጃ እና ግልጽነት",
       methodology: "ሳይንሳዊ ስነ-ዘዴ",
       about: "ስለ ኢትዮ-ድርቅ",
+      lab: "የምርምር ላብራቶሪ",
     },
     hero: {
       boranaZone: "ቦረና ዞን",
