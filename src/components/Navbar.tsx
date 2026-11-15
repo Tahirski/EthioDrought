@@ -24,6 +24,7 @@ import {
   Lightbulb,
   User,
   Lock,
+  Sliders,
 } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 
@@ -48,6 +49,7 @@ export const Navbar: React.FC = () => {
     { href: "/science",    label: "The Science",  labelAm: "ሳይንሱ",         icon: <FlaskConical  className="w-3.5 h-3.5" />, group: "story" },
     { href: "/solution",   label: "Our Solution", labelAm: "መፍትሔው",        icon: <Lightbulb     className="w-3.5 h-3.5" />, group: "story" },
     // Workspace pages
+    { href: "/lab",        label: "Lab",          labelAm: "ላብ",            icon: <Sliders       className="w-3.5 h-3.5" />, group: "workspace" },
     { href: "/explore",    label: "Explore",      labelAm: "ካርታ",          icon: <Map           className="w-3.5 h-3.5" />, group: "workspace" },
     { href: "/fingerprint",label: "Fingerprint",  labelAm: "ሳምንተኛ",        icon: <Fingerprint   className="w-3.5 h-3.5" />, group: "workspace" },
     { href: "/trends",     label: "Trends",       labelAm: "አዝማሚያ",        icon: <TrendingUp    className="w-3.5 h-3.5" />, group: "workspace" },
